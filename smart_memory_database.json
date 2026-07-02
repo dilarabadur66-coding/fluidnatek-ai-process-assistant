@@ -1,0 +1,128 @@
+{
+    "EXP_PCL_BASELINE_1": {
+        "metadata": {
+            "operator_name": "System_Bootstrap",
+            "target_db_table": "telemetry_pcl",
+            "timestamp": "2026-06-30 14:12:02"
+        },
+        "inputs": {
+            "polymer_type": "PCL",
+            "solvent_type": "ACETONE",
+            "solution_percentage": 8.0,
+            "target_voltage_kv": 15.0,
+            "collector_distance_cm": 15.0,
+            "flow_rate_ml_h": 1.0
+        },
+        "outputs": {
+            "process_quality_index": 75.0
+        }
+    },
+    "EXP_PCL_BASELINE_2": {
+        "metadata": {
+            "operator_name": "System_Bootstrap",
+            "target_db_table": "telemetry_pcl",
+            "timestamp": "2026-06-30 14:12:02"
+        },
+        "inputs": {
+            "polymer_type": "PCL",
+            "solvent_type": "ACETONE",
+            "solution_percentage": 8.0,
+            "target_voltage_kv": 15.0,
+            "collector_distance_cm": 15.0,
+            "flow_rate_ml_h": 1.5
+        },
+        "outputs": {
+            "process_quality_index": 85.0
+        }
+    },
+    "EXP_PCL_BASELINE_3": {
+        "metadata": {
+            "operator_name": "System_Bootstrap",
+            "target_db_table": "telemetry_pcl",
+            "timestamp": "2026-06-30 14:12:02"
+        },
+        "inputs": {
+            "polymer_type": "PCL",
+            "solvent_type": "ACETONE",
+            "solution_percentage": 10.0,
+            "target_voltage_kv": 15.0,
+            "collector_distance_cm": 15.0,
+            "flow_rate_ml_h": 1.2
+        },
+        "outputs": {
+            "process_quality_index": 82.0
+        }
+    },
+    "EXP_PCL_BASELINE_4": {
+        "metadata": {
+            "operator_name": "System_Bootstrap",
+            "target_db_table": "telemetry_pcl",
+            "timestamp": "2026-06-30 14:12:02"
+        },
+        "inputs": {
+            "polymer_type": "PCL",
+            "solvent_type": "ACETONE",
+            "solution_percentage": 8.0,
+            "target_voltage_kv": 18.0,
+            "collector_distance_cm": 15.0,
+            "flow_rate_ml_h": 1.2
+        },
+        "outputs": {
+            "process_quality_index": 84.0
+        }
+    },
+    "EXP_PCL_20260701_114316_9bcaaa": {
+        "metadata": {
+            "operator_name": "Tech_Automation",
+            "target_db_table": "telemetry_pcl",
+            "timestamp": "2026-07-01 11:43:16"
+        },
+        "inputs": {
+            "polymer_type": "PCL",
+            "solvent_type": "ACETONE",
+            "solution_percentage": 8.0,
+            "target_voltage_kv": 15.0,
+            "collector_distance_cm": 15.0,
+            "flow_rate_ml_h": 1.2
+        },
+        "outputs": {
+            "process_quality_index": 80.0
+        }
+    },
+    "EXP_PCL_20260701_114327_65a31f": {
+        "metadata": {
+            "operator_name": "Tech_Automation",
+            "target_db_table": "telemetry_pcl",
+            "timestamp": "2026-07-01 11:43:27"
+        },
+        "inputs": {
+            "polymer_type": "PCL",
+            "solvent_type": "ACETONE",
+            "solution_percentage": 8.0,
+            "target_voltage_kv": 15.0,
+            "collector_distance_cm": 15.0,
+            "flow_rate_ml_h": 1.6
+        },
+        "outputs": {
+            "process_quality_index": 80.0
+        }
+    },
+    "EXP_PCL_20260701_114546_ba0b47": {
+        "metadata": {
+            "operator_name": "Tech_Automation",
+            "target_db_table": "telemetry_pcl",
+            "timestamp": "2026-07-01 11:45:46"
+        },
+        "inputs": {
+            "polymer_type": "PCL",
+            "solvent_type": "ACETONE",
+            "solution_percentage": 8.0,
+            "target_voltage_kv": 15.0,
+            "collector_distance_cm": 15.0,
+            "flow_rate_ml_h": 1.6
+        },
+        "outputs": {
+            "process_quality_index": 80.0
+        }
+    }
+}

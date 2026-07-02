@@ -1,0 +1,13 @@
+INFORMACIÓN GENERAL,Unnamed: 1,Unnamed: 2,Unnamed: 3,INYECTOR / SUSTRATO,Unnamed: 5,Unnamed: 6,Unnamed: 7,PRUEBAS EN PLANO,PRUEBAS CON DRUM,Unnamed: 10,Unnamed: 11,PRUEBAS CON R2R,Unnamed: 13,Unnamed: 14,PARÁMETROS,Unnamed: 16,Unnamed: 17,Unnamed: 18,Unnamed: 19,Unnamed: 20,Unnamed: 21,Unnamed: 22,Unnamed: 23,Unnamed: 24,Unnamed: 25,RESULTADOS,Unnamed: 27,Unnamed: 28
+Fórmula,Prueba,Fecha,Propósito,Inyector,Numero de agujas,aguja (G),Sustrato,Tiempo de prueba (min),Tipo de Drum,Velocidad (rpm),Tiempo de prueba (min)2,Ciclos (R2R),Velocidad (mm/s),Tiempo de prueba (min)3,Q1 (mL/h),HV+ (KV),HV- (KV),T (ºC),RH (%),Posicion Y,Velocidad sweep Y (mm/s),Amplitud Sweep Y (mm),dZ (mm),Velocidad sweep X  (mm/s),Amplitud Sweep X (mm),Grado de Procesabilidad,Comentarios del Proceso,Comentarios SEM / Tamaño de Fibra
+FTK-TMS_PCL_001,1,2026-06-11 00:00:00,Estabilizar proceso,,5,22,no,,cilindro,200,,,,,12,13,-4,20,40,,,,120,,,3,Dripping en las agujas de los extremos. Bajar conductividad,
+FTK-TMS_PCL_001,,,,,2,,,,,,,,,,1.6,16,-5,,,,,,150,,,3,Microdripping,
+FTK-TMS_PCL_001,,,,,3,22,,,,,,,,,1.8,16.2,-1,20,40,120,,,95,,,4,,
+,,,,,,,,,,,,,,,1.8,20.2,-3,,,70,,,145,,,4,,
+,,,,,,,,,,,,,,,1.6,15,-1,25,,120,,,95,,,,,
+FTK-TMS_002,2,2026-06-15 00:00:00,,,,,,,cilindro (30 mm),,,,,,14.5,16.2,-5,20,40,,,,160,,,3,Empezó a fallar luego de media hora. Probablemente se taparon las agujas,
+,,,,,,,,,,,,,,,15,20,-3,20,40,,,,200,,,3,Revisar inyector,
+FTK-TMS_002,3,2026-06-16 00:00:00,Probar otro modelo de inyector,,5,22,no,,cilindro (30 mm),200,,,,,15.5,18.5,-10,20,70,35,,,200,,,3,El inyector funciona mucho mejor. Aun se tapan algunas agujas. ,
+,,,,,,,,,,,,,,,15.5,18.2,-10,18,60,35,,,200,,,4,agregue deflectores. Mejora proceso,PCL_8pct
+FTK-TMS_003,4,2026-06-17 00:00:00,Disminuir presencia de beads en las fibras,,5,22,no,,cilindro (30 mm),200,,,,,14,15,-10,18,55,35,,,200,,,4,se prueba compensación de espesor,PCL_9pct
+,5,,Mejorar morfologia de fibras,,5,22,no,,cilindro (30 mm),200,,,,,15,19,-12,18,55,35,,,,,,,,
