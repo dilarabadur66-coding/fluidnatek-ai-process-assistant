@@ -112,40 +112,4 @@ class SmartMemory:
             }
         except Exception:
             return {"estimated_flow_rate_ml_h": 1.5, "status": "ERROR_IN_CALCULATION"}
-        import pandas as pd
-
-
-def import_excel_memory(excel_file):
-
-    df = pd.read_excel(
-        excel_file,
-        sheet_name="PARÁMETROS",
-        header=1
-    )
-
-    df.columns = df.columns.str.strip()
-
-    memory = []
-
-    for _, row in df.iterrows():
-
-        if pd.isna(row.get("Fórmula")):
-            continue
-
-        experiment = {}
-
-        for col in df.columns:
-            experiment[col] = row[col]
-
-        memory.append(experiment)
-
-    with open("machine_memory.json", "w", encoding="utf-8") as f:
-        json.dump(
-            memory,
-            f,
-            indent=4,
-            ensure_ascii=False,
-            default=str
-        )
-
-    return len(memory)
+       
