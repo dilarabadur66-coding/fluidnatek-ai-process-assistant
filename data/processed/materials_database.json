@@ -1,0 +1,731 @@
+[
+    {
+        "name":"Agua destilada",
+        "category":"solvent",
+        "short_name":"water",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"water",
+        "available":"yes"
+    },
+    {
+        "name":"Acetona",
+        "category":"solvent",
+        "short_name":"acetone",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Ketone",
+        "available":"yes"
+    },
+    {
+        "name":"Etanol",
+        "category":"solvent",
+        "short_name":"etOH",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Alcohol",
+        "available":"yes"
+    },
+    {
+        "name":"PES - Polietersulfona - ULTRASON E 6020 P",
+        "category":"polymer",
+        "short_name":"PES",
+        "polymer_family":"Sulfone polymer",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PP SPUNBOND 17 GRS",
+        "category":"substrate",
+        "short_name":"PP",
+        "polymer_family":"Polyolefin",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"DMSO - Dimetilsulfóxido - Merck",
+        "category":"solvent",
+        "short_name":"DMSO",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Sulfoxide",
+        "available":"yes"
+    },
+    {
+        "name":"DCM - Diclorometano - Merck",
+        "category":"solvent",
+        "short_name":"DCM",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Halogenated",
+        "available":"yes"
+    },
+    {
+        "name":"DMC - Carbonato de dimetilo - Merck",
+        "category":"solvent",
+        "short_name":"DMC",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Carbonate",
+        "available":"yes"
+    },
+    {
+        "name":"EtOAc - Acetato de etilo - Merck",
+        "category":"solvent",
+        "short_name":"EtOAc",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Ester",
+        "available":"yes"
+    },
+    {
+        "name":"AcCell - Acetato de celulosa 100kDa - Fischer",
+        "category":"polymer",
+        "short_name":"CA",
+        "polymer_family":"Cellulose derivative",
+        "molecular_weight_kDa":100.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"Polietileno negro sustrato - 10kohm\/sq - Caplinq",
+        "category":"substrate",
+        "short_name":"PE substrate",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"Polietileno negro sustrato - 50kohm\/sq - Caplinq",
+        "category":"substrate",
+        "short_name":"PE substrate",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PEO - 900kDa - Merck",
+        "category":"polymer",
+        "short_name":"PEO",
+        "polymer_family":"Polyether",
+        "molecular_weight_kDa":900.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"Filtura Support 3H17-17-70E1Z - 154,9 cm width",
+        "category":"",
+        "short_name":"",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PEO - 600kDa - Polyox",
+        "category":"polymer",
+        "short_name":"PEO",
+        "polymer_family":"Polyether",
+        "molecular_weight_kDa":600.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PEO - 7MDa - Polyox",
+        "category":"polymer",
+        "short_name":"PEO",
+        "polymer_family":"Polyether",
+        "molecular_weight_kDa":7000.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PEO - 4MDa -Alroko",
+        "category":"polymer",
+        "short_name":"PEO",
+        "polymer_family":"Polyether",
+        "molecular_weight_kDa":4000.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PEO - 2MDa - Polyox",
+        "category":"polymer",
+        "short_name":"PEO",
+        "polymer_family":"Polyether",
+        "molecular_weight_kDa":2000.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PEO - 300kDa",
+        "category":"polymer",
+        "short_name":"PEO",
+        "polymer_family":"Polyether",
+        "molecular_weight_kDa":300.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PEO - 100kDa- SIGMA ALDRICH",
+        "category":"polymer",
+        "short_name":"PEO",
+        "polymer_family":"Polyether",
+        "molecular_weight_kDa":100.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PEO - 4MDa - Polyox",
+        "category":"polymer",
+        "short_name":"PEO",
+        "polymer_family":"Polyether",
+        "molecular_weight_kDa":4000.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"POLYVIDONE KOLLIDON 30 BASF",
+        "category":"polymer",
+        "short_name":"PVP",
+        "polymer_family":"Vinyl polymer",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"POLYVIDONE KOLLIDON 25 BASF",
+        "category":"polymer",
+        "short_name":"PVP",
+        "polymer_family":"Vinyl polymer",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"Ethyl Acetate (acetato de etilo) Sgima, ACS reagent 99.5%",
+        "category":"solvent",
+        "short_name":"EtOAc",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Ester",
+        "available":"yes"
+    },
+    {
+        "name":"DMSO - Dimetilsulfóxido - ACS reagent - Merck",
+        "category":"solvent",
+        "short_name":"DMSO",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Sulfoxide",
+        "available":"yes"
+    },
+    {
+        "name":"Cellulose acetate (acetato de celulosa), Sigma, 30 kDa",
+        "category":"polymer",
+        "short_name":"CA",
+        "polymer_family":"Cellulose derivative",
+        "molecular_weight_kDa":30.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"Iron (III) oxide, nanopowder, <50 nm particle size",
+        "category":"nanoparticle",
+        "short_name":"Fe2O3",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"Ethyl Cellulose-SIGMA ALDRICH",
+        "category":"polymer",
+        "short_name":"EC",
+        "polymer_family":"Cellulose derivative",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"HPMC 100CP - SIGMA ALDRICH",
+        "category":"polymer",
+        "short_name":"HPMC",
+        "polymer_family":"Cellulose derivative",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PEG - Polietilenglicol - 10kDa - Sigma Aldrich",
+        "category":"polymer",
+        "short_name":"PEG",
+        "polymer_family":"Polyether",
+        "molecular_weight_kDa":10.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PVP 360K MERCK - SIGMA ALDRICH",
+        "category":"polymer",
+        "short_name":"PVP",
+        "polymer_family":"Vinyl polymer",
+        "molecular_weight_kDa":360.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PCL 14000 - SIGMA ALDRICH",
+        "category":"polymer",
+        "short_name":"PCL",
+        "polymer_family":"Polyester",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"CATB - SIGMA ALDRICH",
+        "category":"surfactant",
+        "short_name":"CATB",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"D-MANNITOL- SIGMA ALDRICH",
+        "category":"",
+        "short_name":"mannito",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"TECOPHILIC SP-80A-150",
+        "category":"polymer",
+        "short_name":"TPU",
+        "polymer_family":"Polyurethane",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"UBE NYLON 1022B",
+        "category":"polymer",
+        "short_name":"PA",
+        "polymer_family":"Polyamide",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"TECOPHILIC HP-60D-60",
+        "category":"polymer",
+        "short_name":"TPU",
+        "polymer_family":"Polyurethane",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"SODIUM HYDROXIDE-EMPLURA",
+        "category":"",
+        "short_name":"NaOH",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"POTASSIUM CLHORIDE - HONEYWELL",
+        "category":"salt",
+        "short_name":"KCl",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"2 CLHORO-N,N-DIETHYLAMINE HYDROCHLORIDE - SIGMA ALDRICH",
+        "category":"",
+        "short_name":"",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PEG - Polietilenglicol - 20kDa - Sigma Aldrich",
+        "category":"polymer",
+        "short_name":"PEG",
+        "polymer_family":"Polyether",
+        "molecular_weight_kDa":20.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"MAGNESIUM STEARATE - SIGMA ALDRICH",
+        "category":"",
+        "short_name":"",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"ZINC OXIDE CR-4 USP 5",
+        "category":"nanoparticle",
+        "short_name":"ZnO",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"LITHIUM BROMIDE - GPR RECTAPUR",
+        "category":"salt",
+        "short_name":"LiBr",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"RESOMER RG 503 H,POLY(D, L-LACTIDE-CO-GLYCOLIDE) - SIGMA ALDRICH",
+        "category":"polymer",
+        "short_name":"PLGA",
+        "polymer_family":"Polyester",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"EUDRAGIT FS 100",
+        "category":"polymer",
+        "short_name":"",
+        "polymer_family":"Acrylic polymer",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"ZEINA",
+        "category":"polymer",
+        "short_name":"Zein",
+        "polymer_family":"Protein",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"GELATIN NEOMODULUS",
+        "category":"polymer",
+        "short_name":"Gelatin",
+        "polymer_family":"Protein",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"CHITOSAN FOOD GRADE",
+        "category":"polymer",
+        "short_name":"Chitosan",
+        "polymer_family":"Polysaccharide",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"ALGINATE BR-L LOW VISCOSITY",
+        "category":"polymer",
+        "short_name":"Alginate",
+        "polymer_family":"Polysaccharide",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"CELLULOSE CAB (EASTMAN)",
+        "category":"polymer",
+        "short_name":"CAB",
+        "polymer_family":"Polysaccharide",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"MILLED LACTOSE MONOHYDRATED",
+        "category":"",
+        "short_name":"Lactose",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"POLYACRYLONITRILE NUS",
+        "category":"polymer",
+        "short_name":"PAN",
+        "polymer_family":"Acrylic polymer",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"ZINC OXIDE CR-4 USP 5",
+        "category":"nanoparticle",
+        "short_name":"ZnO",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PEO - 300kDa - POLYOX",
+        "category":"polymer",
+        "short_name":"PEO",
+        "polymer_family":"Polyether",
+        "molecular_weight_kDa":300.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"R-2A AGAR - SIGMA ALDRICH",
+        "category":"",
+        "short_name":"Agar",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PVDF2821",
+        "category":"polymer",
+        "short_name":"PVDF",
+        "polymer_family":"Fluoropolymer",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PEOR400X-ALROKO",
+        "category":"polymer",
+        "short_name":"PEO",
+        "polymer_family":"Polyether",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"NYLON 6,6 - SIGMA ALDRICH",
+        "category":"polymer",
+        "short_name":"Nylon",
+        "polymer_family":"Polyamide",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PA 6 SP 25 KDA",
+        "category":"polymer",
+        "short_name":"PA",
+        "polymer_family":"Polyamide",
+        "molecular_weight_kDa":25.0,
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"PVA PARTECK - EMPROVE ESSENTIAL",
+        "category":"polymer",
+        "short_name":"PVA",
+        "polymer_family":"Vinyl polymer",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"CARBOTHANE PC 3572D",
+        "category":"polymer",
+        "short_name":"TPU",
+        "polymer_family":"Polyurethane",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"TECOPHILIC HP-60D-35",
+        "category":"polymer",
+        "short_name":"TPU",
+        "polymer_family":"Polyurethane",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"POLYACRYLONITRILE POWDER",
+        "category":"polymer",
+        "short_name":"PAN",
+        "polymer_family":"Acrylic polymer",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"HEXADECYMETHYLAMMONIUM BROMIDE",
+        "category":"surfactant",
+        "short_name":"CTAB",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"MeOH - Metanol - 99.6% - Sigma Aldrich",
+        "category":"solvent",
+        "short_name":"MeOH",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Alcohol",
+        "available":"yes"
+    },
+    {
+        "name":"PEO - Xel01",
+        "category":"polymer",
+        "short_name":"PEO",
+        "polymer_family":"Polyether",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"XP-034 - Xel01",
+        "category":"polymer",
+        "short_name":"",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"oleic acid",
+        "category":"",
+        "short_name":"oleic acid",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"formic acid 98%",
+        "category":"solvent",
+        "short_name":"formic acid",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Organic acid",
+        "available":"yes"
+    },
+    {
+        "name":"tecophilic SP-93A-100",
+        "category":"polymer",
+        "short_name":"TPU",
+        "polymer_family":"Polyurethane",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    },
+    {
+        "name":"acetic acid - sigma-aldrich",
+        "category":"solvent",
+        "short_name":"acetic acid",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Organic acid",
+        "available":"yes"
+    },
+    {
+        "name":"Decane",
+        "category":"solvent",
+        "short_name":"decane",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Alkane",
+        "available":"yes"
+    },
+    {
+        "name":"Dodecane",
+        "category":"solvent",
+        "short_name":"dodecane",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Alkane",
+        "available":"yes"
+    },
+    {
+        "name":"Heptane",
+        "category":"solvent",
+        "short_name":"heptane",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Alkane",
+        "available":"yes"
+    },
+    {
+        "name":"Hexadecane",
+        "category":"solvent",
+        "short_name":"hexadecane",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Alkane",
+        "available":"yes"
+    },
+    {
+        "name":"Mineral Oil",
+        "category":"solvent",
+        "short_name":"mineal oil",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Hydrocarbon oil",
+        "available":"yes"
+    },
+    {
+        "name":"Octane",
+        "category":"solvent",
+        "short_name":"octaine",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Alkane",
+        "available":"yes"
+    },
+    {
+        "name":"Tetradecane",
+        "category":"solvent",
+        "short_name":"tetradecane",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Alkane",
+        "available":"yes"
+    },
+    {
+        "name":"DMAc - Dimetilacetamida - Stockmeier Química",
+        "category":"solvent",
+        "short_name":"DMAc",
+        "polymer_family":"",
+        "molecular_weight_kDa":"",
+        "solvent_family":"Amide",
+        "available":"yes"
+    },
+    {
+        "name":"ELASTOLLAN 1195A TPU BASF",
+        "category":"polymer",
+        "short_name":"TPU",
+        "polymer_family":"Polyurethane",
+        "molecular_weight_kDa":"",
+        "solvent_family":"",
+        "available":"yes"
+    }
+]
