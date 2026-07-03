@@ -6,7 +6,7 @@ import os
 import uuid
 
 from datetime import datetime
-from memory_engine import SmartMemory
+from models.memory_engine import SmartMemory
 from memory.machine_memory_engine import search_experiment, find_similar_experiments, add_experiment, load_memory 
 
 if 'memory' not in st.session_state:
