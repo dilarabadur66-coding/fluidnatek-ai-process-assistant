@@ -1,0 +1,84 @@
+[
+    {
+        "experiment_id": "FTK-Example_experiment_1",
+        "project_code": "FTK-Example",
+        "project": {
+            "project_code": "FTK-Example",
+            "client": "Anonimo",
+            "start_date": "2026-06-26 00:00:00",
+            "rd_leader": "Sin asignar"
+        },
+        "materials": [
+            {
+                "project_code": "FTK-Example",
+                "material_number": 1,
+                "material_name": "Agua destilada",
+                "article_number": 0.0
+            },
+            {
+                "project_code": "FTK-Example",
+                "material_number": 2,
+                "material_name": "PEO - 600kDa - Polyox",
+                "article_number": 1200012.0
+            },
+            {
+                "project_code": "FTK-Example",
+                "material_number": 3,
+                "material_name": "Etanol",
+                "article_number": 0.0
+            }
+        ],
+        "formula_id": "",
+        "solution_composition": {},
+        "solution_properties": {},
+        "setup": {
+            "setup_id": "FTK-Example_setup_1",
+            "project_code": "FTK-Example",
+            "setup_number": 1,
+            "machine": "le100",
+            "platform": "rotacional",
+            "injector": 5,
+            "number_of_needles": 5,
+            "needle_gauge": 22,
+            "needle_distance": 3,
+            "deflectors": "",
+            "substrate": "",
+            "drum_type": "",
+            "drum_size": ""
+        },
+        "process_parameters": {
+            "experiment_id": "FTK-Example_experiment_1",
+            "project_code": "FTK-Example",
+            "sample_code": "",
+            "setup_number": 1,
+            "formula_id": "",
+            "date": "",
+            "purpose": "",
+            "test_time_min": "",
+            "drum_speed_rpm": "",
+            "r2r_cycles": "",
+            "r2r_speed_mm_s": "",
+            "flow_rate_q1_ml_h": "",
+            "hv_positive_kv": "",
+            "hv_negative_kv": "",
+            "temperature_c": "",
+            "relative_humidity_percent": "",
+            "position_y": "",
+            "sweep_y_speed_mm_s": "",
+            "sweep_y_amplitude_mm": "",
+            "dz_mm": "",
+            "sweep_x_speed_mm_s": "",
+            "sweep_x_amplitude_mm": "",
+            "processability_grade": "",
+            "process_comments": "",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "results": {
+            "processability_grade": "",
+            "process_comments": "",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        }
+    }
+]
