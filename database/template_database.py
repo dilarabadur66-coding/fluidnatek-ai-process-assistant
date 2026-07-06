@@ -102,3 +102,90 @@ def build_solution_properties_database(
     save_json(records, output_path)
 
     return len(records)
+def transform_setup(df, project_code="FTK-Example"):
+    records = []
+
+    for index, row in df.iterrows():
+        record = {
+            "setup_id": f"{project_code}_setup_{index + 1}",
+            "project_code": project_code,
+            "setup_number": row["Numero setup"],
+            "machine": row["Maquina"],
+            "platform": row["Plataforma"],
+            "injector": row["Inyector"],
+            "number_of_needles": row["Numero de agujas"],
+            "needle_gauge": row["aguja (G)"],
+            "needle_distance": row["Distancia entre agujas"],
+            "deflectors": row["Deflectores"],
+            "substrate": row["Sustrato"],
+            "drum_type": row["Tipo de Drum"],
+            "drum_size": row["Tamaño_drum"],
+        }
+
+        records.append(record)
+
+    return records
+def build_setup_database(
+    excel_path=DEFAULT_EXCEL_PATH,
+    output_path=f"{DEFAULT_PROCESSED_DIR}/setup_database.json",
+    project_code="FTK-Example"
+):
+    loader = ExcelLoader(excel_path)
+    df = loader.load_setup_sheet()
+
+    records = transform_setup(df, project_code)
+
+    save_json(records, output_path)
+
+    return len(records)
+def transform_process_parameters(df, project_code="FTK-Example"):
+    records = []
+
+    for index, row in df.iterrows():
+        record = {
+            "experiment_id": f"{project_code}_experiment_{index + 1}",
+            "project_code": project_code,
+            "sample_code": row["Codigo muestra"],
+            "setup_number": row["Setup"],
+            "formula_id": row["Formula"],
+            "date": row["Fecha"],
+            "purpose": row["Propósito"],
+            "test_time_min": row["Tiempo de prueba (min)"],
+            "drum_speed_rpm": row["Velocidad_drum (rpm)"],
+            "r2r_cycles": row["Numero de ciclos (R2R)"],
+            "r2r_speed_mm_s": row["Velocidad_r2r (mm/s)"],
+            "flow_rate_q1_ml_h": row["Q1 (mL/h)"],
+            "hv_positive_kv": row["HV+ (KV)"],
+            "hv_negative_kv": row["HV- (KV)"],
+            "temperature_c": row["T (ºC)"],
+            "relative_humidity_percent": row["RH (%)"],
+            "position_y": row["Posicion Y"],
+            "sweep_y_speed_mm_s": row["Velocidad sweep Y (mm/s)"],
+            "sweep_y_amplitude_mm": row["Amplitud Sweep Y (mm)"],
+            "dz_mm": row["dZ (mm)"],
+            "sweep_x_speed_mm_s": row["Velocidad sweep X  (mm/s)"],
+            "sweep_x_amplitude_mm": row["Amplitud Sweep X (mm)"],
+            "processability_grade": row["Grado de Procesabilidad"],
+            "process_comments": row["Comentarios del Proceso"],
+            "sem_comments": row["Comentarios SEM"],
+            "avg_fiber_diameter_nm": row["avg fiber diameter (nm)"],
+        }
+
+        records.append(record)
+
+    return records
+
+
+def build_process_parameters_database(
+    excel_path=DEFAULT_EXCEL_PATH,
+    output_path=f"{DEFAULT_PROCESSED_DIR}/process_parameters_database.json",
+    project_code="FTK-Example"
+):
+    loader = ExcelLoader(excel_path)
+    df = loader.load_process_parameters_sheet()
+
+    records = transform_process_parameters(df, project_code)
+
+    save_json(records, output_path)
+
+    return len(records)

@@ -66,3 +66,20 @@ class ExcelLoader:
         df = df.fillna("")
 
         return df
+    def load_setup_sheet(self):
+        df = self.load_sheet("Setup")
+
+        df = df.dropna(how="all")
+        df = df.fillna("")
+        return df
+    def load_process_parameters_sheet(self):
+        df = pd.read_excel(
+            self.excel_path,
+            sheet_name="Parametros_proceso",
+            header=1
+        )
+
+        df = df.dropna(how="all")
+        df = df.fillna("")
+
+        return df
