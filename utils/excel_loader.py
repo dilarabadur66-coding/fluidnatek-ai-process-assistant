@@ -39,3 +39,14 @@ class ExcelLoader:
         df = df.fillna("")
 
         return df
+
+    def load_project_materials_sheet(self):
+        df = self.load_sheet("Materiales")
+
+        df = df.dropna(
+            subset=["Lista de materiales utilizados en el proyecto"]
+        )
+
+        df = df.fillna("")
+
+        return df

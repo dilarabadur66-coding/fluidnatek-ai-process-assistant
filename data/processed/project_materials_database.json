@@ -1,0 +1,20 @@
+[
+    {
+        "project_code": "FTK-Example",
+        "material_number": 1,
+        "material_name": "Agua destilada",
+        "article_number": 0.0
+    },
+    {
+        "project_code": "FTK-Example",
+        "material_number": 2,
+        "material_name": "PEO - 600kDa - Polyox",
+        "article_number": 1200012.0
+    },
+    {
+        "project_code": "FTK-Example",
+        "material_number": 3,
+        "material_name": "Etanol",
+        "article_number": 0.0
+    }
+]
