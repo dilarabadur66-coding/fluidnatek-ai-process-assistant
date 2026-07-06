@@ -31,3 +31,11 @@ class ExcelLoader:
         df = df[df["name"] != ""]
 
         return df
+
+    def load_project_details_sheet(self):
+        df = self.load_sheet("Detalles_proyecto")
+
+        df = df.dropna(how="all")
+        df = df.fillna("")
+
+        return df
