@@ -1,0 +1,41 @@
+[
+    {
+        "property_id": "FTK-Example_property_1",
+        "project_code": "FTK-Example",
+        "formula_id": "FTK-Exa_PVA_2",
+        "characterization_date": "",
+        "viscosity_cP": "",
+        "surface_tension_mN_m": "",
+        "conductivity_microS": "",
+        "solid_content_percent": "",
+        "density_kg_l": "",
+        "ph": "",
+        "comments": ""
+    },
+    {
+        "property_id": "FTK-Example_property_2",
+        "project_code": "FTK-Example",
+        "formula_id": "FTK-Exa_PVA_2",
+        "characterization_date": "",
+        "viscosity_cP": "",
+        "surface_tension_mN_m": "",
+        "conductivity_microS": "",
+        "solid_content_percent": "",
+        "density_kg_l": "",
+        "ph": "",
+        "comments": ""
+    },
+    {
+        "property_id": "FTK-Example_property_3",
+        "project_code": "FTK-Example",
+        "formula_id": "FTK-Exa_PVA_1",
+        "characterization_date": "",
+        "viscosity_cP": "",
+        "surface_tension_mN_m": "",
+        "conductivity_microS": "",
+        "solid_content_percent": "",
+        "density_kg_l": "",
+        "ph": "",
+        "comments": ""
+    }
+]

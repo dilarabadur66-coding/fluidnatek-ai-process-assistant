@@ -40,13 +40,29 @@ class ExcelLoader:
 
         return df
 
-    def load_project_materials_sheet(self):
-        df = self.load_sheet("Materiales")
+        def load_project_materials_sheet(self):
+            df = self.load_sheet("Materiales")
 
         df = df.dropna(
             subset=["Lista de materiales utilizados en el proyecto"]
         )
 
+        df = df.fillna("")
+
+        return df
+
+    def load_solution_composition_sheet(self):
+        df = self.load_sheet("Soluciones_composicion")
+
+        df = df.dropna(subset=["FORMULA "])
+        df = df.fillna("")
+
+        return df
+    
+    def load_solution_properties_sheet(self):
+        df = self.load_sheet("Soluciones_propiedades")
+
+        df = df.dropna(subset=["FORMULA "])
         df = df.fillna("")
 
         return df
