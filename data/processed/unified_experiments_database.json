@@ -80,5 +80,1563 @@
             "sem_comments": "",
             "avg_fiber_diameter_nm": ""
         }
+    },
+    {
+        "experiment_id": "legacy_experiment_1",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-003\n(15% in 70% Acetone + 15% Water)",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-003\n(15% in 70% Acetone + 15% Water)",
+            "polymer_a": "FTK-CelAc-003\n(15% in 70% Acetone + 15% Water)",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 1.5,
+            "hv_positive_kv": 10,
+            "hv_negative_kv": "",
+            "temperature_c": 20,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 1,
+            "process_comments": "Sol'n gels and dries around the needle, even at 60% humidity and 2.5 mL/h.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_2",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-004\n(15% in 42.5% DMSO + 42.5% Eth.Ac.)",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-004\n(15% in 42.5% DMSO + 42.5% Eth.Ac.)",
+            "polymer_a": "FTK-CelAc-004\n(15% in 42.5% DMSO + 42.5% Eth.Ac.)",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 1.6,
+            "hv_positive_kv": 6,
+            "hv_negative_kv": "",
+            "temperature_c": 20,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 4,
+            "process_comments": "Displays a jet 0.5-1 cm long before it spirals out, as do all samples below.\nProcess is stable.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_3",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-005\n(10% in 45% DMSO + 45% Eth.Ac.)",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-005\n(10% in 45% DMSO + 45% Eth.Ac.)",
+            "polymer_a": "FTK-CelAc-005\n(10% in 45% DMSO + 45% Eth.Ac.)",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 1,
+            "hv_positive_kv": 10,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 4,
+            "process_comments": "Process is stable.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_4",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-006\n(13% in 37% DMSO + 50% Eth.Ac.)",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-006\n(13% in 37% DMSO + 50% Eth.Ac.)",
+            "polymer_a": "FTK-CelAc-006\n(13% in 37% DMSO + 50% Eth.Ac.)",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 0.6,
+            "hv_positive_kv": 7,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 4,
+            "process_comments": "Higher V => Spiral \"dances\".\nHigher Q => Dripping.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_5",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-007\n(15% in 35% DMSO + 50% Eth.Ac.)",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-007\n(15% in 35% DMSO + 50% Eth.Ac.)",
+            "polymer_a": "FTK-CelAc-007\n(15% in 35% DMSO + 50% Eth.Ac.)",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 0.6,
+            "hv_positive_kv": 7,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 4,
+            "process_comments": "Sol'n is not stable.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_6",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-007",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-007",
+            "polymer_a": "FTK-CelAc-007",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 1,
+            "hv_positive_kv": 7,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 4,
+            "process_comments": "Sol'n is not stable.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_7",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-009\n(17% in 40% DMSO + 43% Eth.Ac.)",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-009\n(17% in 40% DMSO + 43% Eth.Ac.)",
+            "polymer_a": "FTK-CelAc-009\n(17% in 40% DMSO + 43% Eth.Ac.)",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 0.6,
+            "hv_positive_kv": 7,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 4,
+            "process_comments": "Before T and H settled, occasional dripping was observed, which was reduced upon slightly increasing the voltage.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_8",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-009",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-009",
+            "polymer_a": "FTK-CelAc-009",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 1,
+            "hv_positive_kv": 7,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 4,
+            "process_comments": "Same as above.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_9",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-008\n(15% in 40% DMSO + 45% Eth.Ac.)",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-008\n(15% in 40% DMSO + 45% Eth.Ac.)",
+            "polymer_a": "FTK-CelAc-008\n(15% in 40% DMSO + 45% Eth.Ac.)",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 0.45,
+            "hv_positive_kv": 7,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Little no no dripping (but dripping at higher flow rates), spiral dances a little bit",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_10",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-008",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-008",
+            "polymer_a": "FTK-CelAc-008",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 0.45,
+            "hv_positive_kv": 7,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "No dripping, but spiral dances a bit more than for the larger needle (hence voltage was decreased)",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_11",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-008",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-008",
+            "polymer_a": "FTK-CelAc-008",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 1,
+            "hv_positive_kv": 7,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 4,
+            "process_comments": "Spiral dances a tiny bit, stabilizes with time.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_12",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-008",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-008",
+            "polymer_a": "FTK-CelAc-008",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 0.6,
+            "hv_positive_kv": 7,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 4,
+            "process_comments": "Spiral dances a tiny bit, stabilizes with time.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_13",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-008",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-008",
+            "polymer_a": "FTK-CelAc-008",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 0.6,
+            "hv_positive_kv": 9,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Spiral dances a lot.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_14",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010",
+            "polymer_a": "FTK-CelAc-010",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 0.6,
+            "hv_positive_kv": 7,
+            "hv_negative_kv": "",
+            "temperature_c": "30+-",
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 4,
+            "process_comments": "Spiral is stable.\nEcu is unstable: 19%<H<24%",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_15",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010",
+            "polymer_a": "FTK-CelAc-010",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 0.6,
+            "hv_positive_kv": 9,
+            "hv_negative_kv": "",
+            "temperature_c": "30+-",
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 4,
+            "process_comments": "Spiral is at an angle but stable (little to no dancing), in spite of the high voltage - higher stability than #14.\nEcu is unstable: 19%<H<24%",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_16",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010",
+            "polymer_a": "FTK-CelAc-010",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 0.4,
+            "hv_positive_kv": 7,
+            "hv_negative_kv": "",
+            "temperature_c": "30+-",
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 4,
+            "process_comments": "Spiral is stable.\nEcu is semi-stable: 20%<H<22%",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_17",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010a",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010a",
+            "polymer_a": "FTK-CelAc-010a",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.5 / needle",
+            "hv_positive_kv": 19,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Almost perfectly stable.\nDripping at lower voltages.\nTiny amount of spiral dancing.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_18",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010a",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010a",
+            "polymer_a": "FTK-CelAc-010a",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.45 / needle",
+            "hv_positive_kv": 24,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 2,
+            "process_comments": "Note: injectors at pos. 4, 7, 10 (left=>right).\nEdge effects near right injector, jets are less stable there. Otherwise jets are fairly stable.\n\"Puntitos\" on material - indicating micro-dripping or a similar problem.\nMat is heterogeneous (probably due to net-type collector - changed after #22).",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_19",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010a",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010a",
+            "polymer_a": "FTK-CelAc-010a",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.45 / needle",
+            "hv_positive_kv": 26,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 2,
+            "process_comments": "Note: injectors at pos. 4, 7, 10 (left=>right).\nSame as #19.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_20",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010a",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010a",
+            "polymer_a": "FTK-CelAc-010a",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.45 / needle",
+            "hv_positive_kv": 24,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Note: injectors at pos. 3, 6, 9 (left=>right).\nNote: Also tried pos. 4, 6, 8: dripping at central injector, so spaces of 3 are required.\nEdge effects eliminated!\nOtherwise same as #19.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_21",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010a",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010a",
+            "polymer_a": "FTK-CelAc-010a",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.45 / needle",
+            "hv_positive_kv": 24,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 2,
+            "process_comments": "Static test to see differences between the 3 injectors.\n#22 L, C, R: left, central, right injectors, respectively.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_22",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010b",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010b",
+            "polymer_a": "FTK-CelAc-010b",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.45 / needle",
+            "hv_positive_kv": 21,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Jets look mostly fine, with the occational instability.\nMat is still textured and heterogeneous - the belt collector helps but not enough.\nSome points on mat imply dripping.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_23",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010b",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010b",
+            "polymer_a": "FTK-CelAc-010b",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.45 / needle",
+            "hv_positive_kv": 21,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Jets look good.\n\"Puntitos\" on mat - Voltage might be too high.\nAgain, small-scale texture.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_24",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010b",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010b",
+            "polymer_a": "FTK-CelAc-010b",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.45 / needle",
+            "hv_positive_kv": 22,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Jets look good. One neddle was dripping at 19-(-16)kV. Dripping at 20-(-16) as well!\nNear-right deflector rotated upwards.\nAll mats on PP show a texture (see on the right)",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_25",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010b",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010b",
+            "polymer_a": "FTK-CelAc-010b",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.5 / needle",
+            "hv_positive_kv": 22,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Jets look good, but process seems on the edge of instability.\nDeflectors back to normal.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_26",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010b",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010b",
+            "polymer_a": "FTK-CelAc-010b",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.45 / needle",
+            "hv_positive_kv": 22,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 2,
+            "process_comments": "Done with one deflector rotated up to prevent dripping at its nearest needle.\nSome instability, some dripping.\nThe texture that was visible on PP is almost or completely gone.\nSome striping along the x-axis, probably due to perforations on metal collector.\nSome puntitos.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_27",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010b",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010b",
+            "polymer_a": "FTK-CelAc-010b",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.45 / needle",
+            "hv_positive_kv": 22,
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Process looks stable.\nTexture is either almost or completely gone.\nNo striping.\nPuntitos are still there.\nBetter than siliconized paper.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_28",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010b",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010b",
+            "polymer_a": "FTK-CelAc-010b",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.45 / needle",
+            "hv_positive_kv": "22, 22",
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Jets look good.\nMaterial: many many \"puntitos\"\nStripes correlating exactly to the perforations in the metal (2.8-2.9 stripes/cm)",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_29",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010b",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010b",
+            "polymer_a": "FTK-CelAc-010b",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.45 / needle",
+            "hv_positive_kv": "22, 22",
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Jets look good.\nMaterial: fewer \"puntitas\", but of course no sweep => lines on material, not good. Sweep appaers to be mandatory.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_30",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010b",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010b",
+            "polymer_a": "FTK-CelAc-010b",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.45 / needle",
+            "hv_positive_kv": "22, 22",
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Jets look good.\nPaper develops folds.\nSome puntitos.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_31",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010b",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010b",
+            "polymer_a": "FTK-CelAc-010b",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.45 / needle",
+            "hv_positive_kv": "23, 24",
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Possibly some casting",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_32",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010b",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010b",
+            "polymer_a": "FTK-CelAc-010b",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.42 / needle",
+            "hv_positive_kv": "24, 24=>25",
+            "hv_negative_kv": "",
+            "temperature_c": 32,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Mostly fine. \"Puntitos\" coming from a few specific needles near the centers of both injectors.\nOne \"magic wanding\" of a needle => a bunch of droplets and puntitos.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_33",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010c",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010c",
+            "polymer_a": "FTK-CelAc-010c",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.4 / needle",
+            "hv_positive_kv": "23, 23",
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Jets look good. Some of the time, the back jets go outside of the substrate [after ~45 min, it happened more]. No substrate folding unless pressing \"jog\".\nStill some \"puntitos\" on mat!\nOne needle near center of left injector showing a large taylor cone / potential drop, but not as bad as before removing neddles #19 from injector.\nSome \"mountain\" growing outside of belt.\nLower RTR velocity => less pronounced \"mountains\", just for the amount of material.\nStripes on mat (visible through light) - tension probably too high.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_34",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010c",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010c",
+            "polymer_a": "FTK-CelAc-010c",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.4 / needle",
+            "hv_positive_kv": "25, 25",
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Process: no dripping, a couple of needles with large taylor cones, but generally fine and better than before removing half of the needles. Some of the time, material is attracted to outside of the collector. Sometimes fiber bridges are formed.\nMat: Showing stripes along the x-direction, probably due to tension on the SiO2 paper (appeared in both 10% and 40% tension).",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_35",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010c",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010c",
+            "polymer_a": "FTK-CelAc-010c",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.3 / needle",
+            "hv_positive_kv": "25, 25",
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 2,
+            "process_comments": "7-8 of the 34 needles at the two central injectors show borderline dripping, in spite of the lower Q. V increased to compensate with partial success but creating problems of threading (fiber bridging from needles to material).",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_36",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010c",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010c",
+            "polymer_a": "FTK-CelAc-010c",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.3 / needle",
+            "hv_positive_kv": "24, 24",
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 2,
+            "process_comments": "Too much chaos with no deflectors.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_37",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010c",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010c",
+            "polymer_a": "FTK-CelAc-010c",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.3 / needle",
+            "hv_positive_kv": "24, 24",
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "Better than previous. Deflectors help. Some material is still lost, probably due to the larger sweep range, but it's worth it if itgets rid of the lines on the mat.\nSweep shifted by 10 mm towards operator to prevent material loss - because material loss also formed a bridge from deflector to side of collector. Following that change, a bridge from deflector to collector was formed several times on the near-operator side, and had to be manually removed each time.",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_38",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "FTK-CelAc-010c",
+        "solution_composition": {
+            "formula_id": "FTK-CelAc-010c",
+            "polymer_a": "FTK-CelAc-010c",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": "0.3 / needle",
+            "hv_positive_kv": "24, 24",
+            "hv_negative_kv": "",
+            "temperature_c": 30,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "10 A4-size sheets sent to sefar.\nJets look good.\nMat: Decent but not perfect, some puntitos.\nOne bad needle (left-most injector, fifth needle form the far side) was intermitant between spinning and sputtering, horribly maring the mat. Needle replaced, injectors re-leveled, sample restarted.\nReduced max sweep to 270 as material kept making bridges between collector and deflectors. It helped for a few minutes.\nMaterial was bridging on both sides of the collector (sometimes one, sometimes the other, sometimes both, sometimes neither).",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_39",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "",
+        "solution_composition": {
+            "formula_id": "",
+            "polymer_a": "",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 1.6,
+            "hv_positive_kv": 16.0,
+            "hv_negative_kv": "",
+            "temperature_c": 25.0,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "good",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_40",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "",
+        "solution_composition": {
+            "formula_id": "",
+            "polymer_a": "",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 1.2,
+            "hv_positive_kv": 16.0,
+            "hv_negative_kv": "",
+            "temperature_c": 25.0,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 4,
+            "process_comments": "very very good",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "legacy_experiment_41",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": ""
+        },
+        "materials": [],
+        "formula_id": "",
+        "solution_composition": {
+            "formula_id": "",
+            "polymer_a": "",
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": ""
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 1.2,
+            "hv_positive_kv": 11.0,
+            "hv_negative_kv": "",
+            "temperature_c": 20.0,
+            "relative_humidity_percent": "",
+            "dz_mm": ""
+        },
+        "results": {
+            "processability_grade": 4,
+            "process_comments": "good",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "machine_memory.json"
     }
 ]

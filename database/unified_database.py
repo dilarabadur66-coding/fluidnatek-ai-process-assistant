@@ -105,3 +105,78 @@ def build_unified_experiments_database(
 
 def load_unified_experiments_database(path=UNIFIED_OUTPUT_PATH):
     return load_json(path)
+MACHINE_MEMORY_PATH = Path("machine_memory.json")
+
+
+def convert_machine_memory_record(record, index):
+    formula_id = record.get("formula", record.get("Fórmula", ""))
+    flow = record.get("flow", record.get("Q1 (mL/h)", ""))
+    voltage = record.get("voltage", record.get("HV+ (KV)", ""))
+    temperature = record.get("temperature", record.get("T (ºC)", ""))
+    grade = record.get("grade", record.get("Grado de Procesabilidad", ""))
+    comments = record.get(
+        "comments",
+        record.get("Comentarios del Proceso", "")
+    )
+
+    return {
+        "experiment_id": f"legacy_experiment_{index + 1}",
+        "project_code": "LEGACY_EXCEL",
+        "project": {
+            "project_code": "LEGACY_EXCEL",
+            "client": "Historical Excel Import",
+            "start_date": "",
+            "rd_leader": "",
+        },
+        "materials": [],
+        "formula_id": formula_id,
+        "solution_composition": {
+            "formula_id": formula_id,
+            "polymer_a": formula_id,
+            "polymer_a_percentage": "",
+            "solvent_a": "",
+            "solvent_a_percentage": "",
+        },
+        "solution_properties": {},
+        "setup": {
+            "machine": "legacy setup",
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": flow,
+            "hv_positive_kv": voltage,
+            "hv_negative_kv": "",
+            "temperature_c": temperature,
+            "relative_humidity_percent": "",
+            "dz_mm": "",
+        },
+        "results": {
+            "processability_grade": grade,
+            "process_comments": comments,
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": "",
+        },
+        "source": "machine_memory.json",
+    }
+
+
+def migrate_machine_memory_to_unified():
+    machine_records = load_json(MACHINE_MEMORY_PATH)
+    unified_records = load_json(UNIFIED_OUTPUT_PATH)
+
+    existing_ids = {
+        record.get("experiment_id", "")
+        for record in unified_records
+    }
+
+    migrated_records = []
+
+    for index, record in enumerate(machine_records):
+        converted = convert_machine_memory_record(record, index)
+
+        if converted["experiment_id"] not in existing_ids:
+            migrated_records.append(converted)
+
+    unified_records.extend(migrated_records)
+    save_json(unified_records, UNIFIED_OUTPUT_PATH)
+
+    return len(migrated_records), len(unified_records)
