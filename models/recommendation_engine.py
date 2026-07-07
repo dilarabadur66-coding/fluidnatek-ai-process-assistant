@@ -65,20 +65,29 @@ class RecommendationEngine:
         min_grade=3
     ):
         matching_experiments = self.find_experiments_by_material(material_name)
+
         best_experiments = self.find_best_experiments(
             matching_experiments,
             min_grade=min_grade
         )
 
-        suggestions = self.suggest_process_parameters(best_experiments)
+        if best_experiments:
+            experiments_for_suggestion = best_experiments
+            recommendation_status = "BASED_ON_SUCCESSFUL_EXPERIMENTS"
+        else:
+            experiments_for_suggestion = matching_experiments
+            recommendation_status = "BASED_ON_MATCHING_EXPERIMENTS_NO_GRADE_AVAILABLE"
+
+        suggestions = self.suggest_process_parameters(experiments_for_suggestion)
 
         return {
             "material_name": material_name,
             "matching_experiments_count": len(matching_experiments),
             "best_experiments_count": len(best_experiments),
+            "recommendation_status": recommendation_status,
             "suggested_process_window": suggestions,
             "reference_experiments": [
                 self.memory.summarize_experiment(experiment)
-                for experiment in best_experiments
+                for experiment in experiments_for_suggestion
             ],
         }
