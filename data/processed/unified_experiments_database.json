@@ -1638,5 +1638,164 @@
             "avg_fiber_diameter_nm": ""
         },
         "source": "machine_memory.json"
+    },
+    {
+        "experiment_id": "FTK-Example_experiment_20260708_122918",
+        "project_code": "FTK-Example",
+        "project": {
+            "project_code": "FTK-Example",
+            "client": "Anonimo",
+            "start_date": "2026-07-08",
+            "rd_leader": "Sin asignar"
+        },
+        "materials": [
+            {
+                "project_code": "FTK-Example",
+                "material_name": "PEO - Xel01"
+            },
+            {
+                "project_code": "FTK-Example",
+                "material_name": "DCM - Diclorometano - Merck"
+            }
+        ],
+        "formula_id": "FTK-Exa_PVA_1",
+        "solution_composition": {
+            "formula_id": "FTK-Exa_PVA_1",
+            "polymer_a": "PEO - Xel01",
+            "polymer_a_percentage": 10.0,
+            "solvent_a": "DCM - Diclorometano - Merck",
+            "solvent_a_percentage": 90.0
+        },
+        "solution_properties": {
+            "viscosity_cP": "",
+            "conductivity_microS": ""
+        },
+        "setup": {
+            "setup_number": "1",
+            "machine": "LE100",
+            "platform": "rotacional"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 1.5,
+            "hv_positive_kv": 18.0,
+            "hv_negative_kv": 0.0,
+            "temperature_c": 25.3,
+            "relative_humidity_percent": 40.0,
+            "position_y": 4.0,
+            "dz_mm": 350.0
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "",
+            "sem_comments": "",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "Streamlit App"
+    },
+    {
+        "experiment_id": "FTK-Example_experiment_20260709_135533",
+        "project_code": "FTK-Example",
+        "project": {
+            "project_code": "FTK-Example",
+            "client": "Anonimo",
+            "start_date": "2026-07-09",
+            "rd_leader": "Sin asignar"
+        },
+        "materials": [
+            {
+                "project_code": "FTK-Example",
+                "material_name": "PES - Polietersulfona - ULTRASON E 6020 P"
+            },
+            {
+                "project_code": "FTK-Example",
+                "material_name": "Octane"
+            }
+        ],
+        "formula_id": "FTK-Exa_PVA_1",
+        "solution_composition": {
+            "formula_id": "FTK-Exa_PVA_1",
+            "polymer_a": "PES - Polietersulfona - ULTRASON E 6020 P",
+            "polymer_a_percentage": 10.0,
+            "solvent_a": "Octane",
+            "solvent_a_percentage": 90.4
+        },
+        "solution_properties": {
+            "viscosity_cP": "telemetry_pcl",
+            "conductivity_microS": ""
+        },
+        "setup": {
+            "setup_number": "1",
+            "machine": "LE500",
+            "platform": "rotacional"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 1.0,
+            "hv_positive_kv": 15.0,
+            "hv_negative_kv": 0.0,
+            "temperature_c": 25.5,
+            "relative_humidity_percent": 40.0,
+            "position_y": 0.0,
+            "dz_mm": 157.0
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "",
+            "sem_comments": "hatika",
+            "avg_fiber_diameter_nm": ""
+        },
+        "source": "Streamlit App"
+    },
+    {
+        "experiment_id": "FTK-Example_experiment_20260709_135632",
+        "project_code": "FTK-Example",
+        "project": {
+            "project_code": "FTK-Example",
+            "client": "Anonimo",
+            "start_date": "2026-07-09",
+            "rd_leader": "Sin asignar"
+        },
+        "materials": [
+            {
+                "project_code": "FTK-Example",
+                "material_name": "PES - Polietersulfona - ULTRASON E 6020 P"
+            },
+            {
+                "project_code": "FTK-Example",
+                "material_name": "Agua destilada"
+            }
+        ],
+        "formula_id": "FTK-Exa_PVA_1",
+        "solution_composition": {
+            "formula_id": "FTK-Exa_PVA_1",
+            "polymer_a": "PES - Polietersulfona - ULTRASON E 6020 P",
+            "polymer_a_percentage": 10.0,
+            "solvent_a": "Agua destilada",
+            "solvent_a_percentage": 90.0
+        },
+        "solution_properties": {
+            "viscosity_cP": "11",
+            "conductivity_microS": "PCL"
+        },
+        "setup": {
+            "setup_number": "1",
+            "machine": "LE100",
+            "platform": "rotacional"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 1.0,
+            "hv_positive_kv": 15.0,
+            "hv_negative_kv": 0.0,
+            "temperature_c": 25.0,
+            "relative_humidity_percent": 40.0,
+            "position_y": 0.0,
+            "dz_mm": 150.0
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "aaaaaaaaaaaa",
+            "sem_comments": "aaaaaaaaaaaaaaaaaaaaaa",
+            "avg_fiber_diameter_nm": "ACETONE"
+        },
+        "source": "Streamlit App"
     }
 ]
