@@ -198,19 +198,222 @@ def similarity_score(exp, query):
     return round((score / max_score) * 100, 2)
 
 
-def search_similar_experiments(records, query, limit=5):
+def search_similar_experiments(
+    records,
+    query,
+    minimum_similarity=50,
+    maximum_results=10
+):
     scored = []
 
     for exp in records:
         score = similarity_score(exp, query)
 
-        if score > 0:
+        if score >= minimum_similarity:
             scored.append((score, exp))
 
     scored.sort(key=lambda item: item[0], reverse=True)
 
-    return scored[:limit]
+    return scored[:maximum_results]
+    
 
+def calculate_numeric_summary(values):
+    clean_values = [
+        value
+        for value in values
+        if value is not None
+    ]
+
+    if not clean_values:
+        return None
+
+    return {
+        "minimum": round(min(clean_values), 2),
+        "maximum": round(max(clean_values), 2),
+        "average": round(
+            sum(clean_values) / len(clean_values),
+            2
+        ),
+    }
+
+def analyze_similar_experiments(similar_experiments, query):
+    successful_experiments = []
+    all_grades = []
+    fiber_diameters = []
+
+    parameter_values = {
+        "Q1 (mL/h)": [],
+        "HV+ (kV)": [],
+        "HV- (kV)": [],
+        "T (C)": [],
+        "RH (%)": [],
+        "Position Y": [],
+        "dZ (mm)": [],
+    }
+
+    process_keys = {
+        "Q1 (mL/h)": "flow_rate_q1_ml_h",
+        "HV+ (kV)": "hv_positive_kv",
+        "HV- (kV)": "hv_negative_kv",
+        "T (C)": "temperature_c",
+        "RH (%)": "relative_humidity_percent",
+        "Position Y": "position_y",
+        "dZ (mm)": "dz_mm",
+    }
+
+    comments = []
+
+    for score, experiment in similar_experiments:
+        process = experiment.get("process_parameters", {})
+        results = experiment.get("results", {})
+
+        grade = to_float(
+            results.get("processability_grade", "")
+        )
+
+        fiber = to_float(
+            results.get("avg_fiber_diameter_nm", "")
+        )
+
+        if grade is not None:
+            all_grades.append(grade)
+
+        if fiber is not None:
+            fiber_diameters.append(fiber)
+
+        if grade is not None and grade >= 3:
+            successful_experiments.append((score, experiment))
+
+            for label, process_key in process_keys.items():
+                value = to_float(
+                    process.get(process_key, "")
+                )
+
+                if value is not None:
+                    parameter_values[label].append(value)
+
+        comment = str(
+            results.get("process_comments", "")
+        ).strip()
+
+        if comment and comment not in comments:
+            comments.append(comment)
+
+    successful_count = len(successful_experiments)
+    total_count = len(similar_experiments)
+
+    if all_grades:
+        expected_grade = round(
+            sum(all_grades) / len(all_grades),
+            2
+        )
+    else:
+        expected_grade = None
+
+    if fiber_diameters:
+        expected_fiber = round(
+            sum(fiber_diameters) / len(fiber_diameters),
+            2
+        )
+    else:
+        expected_fiber = None
+
+    process_window = {
+        label: calculate_numeric_summary(values)
+        for label, values in parameter_values.items()
+    }
+
+    if total_count > 0:
+        success_rate = round(
+            successful_count / total_count * 100,
+            1
+        )
+    else:
+        success_rate = None
+
+    interpretation = []
+
+    if expected_grade is not None:
+        if expected_grade >= 3.5:
+            interpretation.append(
+                "Historical experiments indicate high expected processability."
+            )
+        elif expected_grade >= 3:
+            interpretation.append(
+                "Historical experiments indicate acceptable expected processability."
+            )
+        elif expected_grade >= 2:
+            interpretation.append(
+                "Historical results indicate moderate processability. Parameter optimization may be required."
+            )
+        else:
+            interpretation.append(
+                "Historical experiments indicate low expected processability."
+            )
+    else:
+        interpretation.append(
+            "There is not enough historical result data to estimate processability."
+        )
+
+    if expected_fiber is not None:
+        interpretation.append(
+            f"The expected average fiber diameter is approximately {expected_fiber} nm."
+        )
+    else:
+        interpretation.append(
+            "There is not enough historical fiber diameter data to make an estimate."
+        )
+
+    warnings = []
+
+    successful_rh = process_window.get("RH (%)")
+    successful_flow = process_window.get("Q1 (mL/h)")
+    successful_voltage = process_window.get("HV+ (kV)")
+
+    if successful_rh:
+        query_rh = to_float(query.get("humidity"))
+
+        if query_rh is not None and (
+            query_rh < successful_rh["minimum"]
+            or query_rh > successful_rh["maximum"]
+        ):
+            warnings.append(
+                "The input RH value is outside the successful historical range."
+            )
+
+    if successful_flow:
+        query_flow = to_float(query.get("flow"))
+
+        if query_flow is not None and (
+            query_flow < successful_flow["minimum"]
+            or query_flow > successful_flow["maximum"]
+        ):
+            warnings.append(
+                "The input Q1 value is outside the successful historical range."
+            )
+
+    if successful_voltage:
+        query_voltage = to_float(query.get("hv_plus"))
+
+        if query_voltage is not None and (
+            query_voltage < successful_voltage["minimum"]
+            or query_voltage > successful_voltage["maximum"]
+        ):
+            warnings.append(
+                "The input HV+ value is outside the successful historical range."
+            )
+
+    return {
+        "total_similar_experiments": total_count,
+        "successful_experiments": successful_count,
+        "success_rate_percent": success_rate,
+        "expected_processability_grade": expected_grade,
+        "expected_fiber_diameter_nm": expected_fiber,
+        "interpretation": interpretation,
+        "recommended_process_window": process_window,
+        "warnings": warnings,
+        "historical_comments": comments[:5],
+    }
 
 def predict_result(similar_experiments):
     grades = []
@@ -253,6 +456,7 @@ def create_new_experiment(data):
 
     return {
         "experiment_id": experiment_id,
+         "sample_code": data["sample_code"],
         "project_code": data["project_code"],
         "project": {
             "project_code": data["project_code"],
@@ -495,19 +699,125 @@ if submitted:
     st.session_state["last_query"] = query
     st.session_state["similar_results"] = similar
 
-    if similar:
-        st.success(f"Found {len(similar)} similar experiment(s).")
+similar = st.session_state.get(
+    "similar_results",
+    []
+)
 
-        prediction = predict_result(similar)
+if similar:
+    st.success(
+        f"{len(similar)} relevant historical experiment(s) found."
+    )
 
-        st.subheader("🧠 Expected Result Based on Previous Experiments")
-        st.json(prediction)
+    analysis = analyze_similar_experiments(
+        similar,
+        query
+    )
 
+    st.subheader("AI Process Interpretation")
+
+    metric1, metric2, metric3 = st.columns(3)
+
+    with metric1:
+        st.metric(
+            "Relevant Experiments",
+            analysis["total_similar_experiments"]
+        )
+
+    with metric2:
+        st.metric(
+            "Successful Experiments",
+            analysis["successful_experiments"]
+        )
+
+    with metric3:
+        success_rate = analysis["success_rate_percent"]
+
+        st.metric(
+            "Historical Success Rate",
+            f"{success_rate}%"
+            if success_rate is not None
+            else "No data"
+        )
+
+    st.write("### Expected Result")
+
+    expected_grade = analysis[
+        "expected_processability_grade"
+    ]
+
+    expected_fiber = analysis[
+        "expected_fiber_diameter_nm"
+    ]
+
+    if expected_grade is not None:
+        st.write(
+            f"**Expected processability grade:** "
+            f"{expected_grade} / 4"
+        )
     else:
-        st.warning("No similar experiment found.")
+        st.write(
+            "**Expected processability grade:** "
+            "Not enough historical data"
+        )
+
+    if expected_fiber is not None:
+        st.write(
+            f"**Expected fiber diameter:** "
+            f"{expected_fiber} nm"
+        )
+    else:
+        st.write(
+            "**Expected fiber diameter:** "
+            "No historical fiber diameter data"
+        )
+
+    st.write("### Interpretation")
+
+    for message in analysis["interpretation"]:
+        st.info(message)
+
+    st.write("### Recommended Successful Process Window")
+
+    window_rows = []
+
+    for parameter, statistics in analysis[
+        "recommended_process_window"
+    ].items():
+        if statistics is not None:
+            window_rows.append({
+                "Parameter": parameter,
+                "Minimum": statistics["minimum"],
+                "Maximum": statistics["maximum"],
+                "Average": statistics["average"],
+            })
+
+    if window_rows:
+        st.dataframe(
+            pd.DataFrame(window_rows),
+            use_container_width=True
+        )
+    else:
+        st.warning(
+            "Successful process window could not be calculated."
+        )
+
+    if analysis["warnings"]:
+        st.write("### Risk Warnings")
+
+        for warning in analysis["warnings"]:
+            st.warning(warning)
+
+    if analysis["historical_comments"]:
+        st.write("### Historical Engineer Comments")
+
+        for comment in analysis["historical_comments"]:
+            st.write(f"- {comment}")
+
+elif submitted:
+    st.warning("No similar experiment found.")
 
 st.write("---")
-
 st.header("2️⃣ Decision")
 
 similar_from_state = st.session_state.get("similar_results", [])
@@ -548,6 +858,7 @@ if st.session_state["show_save_form"]:
         col1, col2, col3 = st.columns(3)
 
         with col1:
+            sample_code = st.text_input("Sample Code",value="")
             client = st.text_input("Client", value="Anonimo")
             operator = st.text_input("R&D Leader / Operator", value="Sin asignar")
             date = st.text_input("Date", value=datetime.now().strftime("%Y-%m-%d"))
@@ -591,6 +902,7 @@ if st.session_state["show_save_form"]:
 
     if confirm_save:
         new_data = {
+            "sample_code": sample_code,
             "project_code": query_from_state["project_code"],
             "client": client,
             "operator": operator,
