@@ -5694,5 +5694,59 @@
             "avg_fiber_diameter_nm": ""
         },
         "source": "data\\raw\\historical_projects\\6_POCS_PEO.xlsm"
+    },
+    {
+        "experiment_id": "FTK-Example_experiment_20260716_133814",
+        "sample_code": "aaa",
+        "project_code": "FTK-Example",
+        "project": {
+            "project_code": "FTK-Example",
+            "client": "Anonimo",
+            "start_date": "2026-07-16",
+            "rd_leader": "Sin asignar"
+        },
+        "materials": [
+            {
+                "project_code": "FTK-Example",
+                "material_name": "PEO - 300kDa"
+            },
+            {
+                "project_code": "FTK-Example",
+                "material_name": "Etanol"
+            }
+        ],
+        "formula_id": "FTK-Exa_PVA_1",
+        "solution_composition": {
+            "formula_id": "FTK-Exa_PVA_1",
+            "polymer_a": "PEO - 300kDa",
+            "polymer_a_percentage": 10.0,
+            "solvent_a": "Etanol",
+            "solvent_a_percentage": 90.0
+        },
+        "solution_properties": {
+            "viscosity_cP": "GABRI",
+            "conductivity_microS": "2026-07-08"
+        },
+        "setup": {
+            "setup_number": "1",
+            "machine": "LE100",
+            "platform": "rotacional"
+        },
+        "process_parameters": {
+            "flow_rate_q1_ml_h": 1.0,
+            "hv_positive_kv": 15.0,
+            "hv_negative_kv": 0.0,
+            "temperature_c": 25.0,
+            "relative_humidity_percent": 40.0,
+            "position_y": 0.0,
+            "dz_mm": 150.0
+        },
+        "results": {
+            "processability_grade": 3,
+            "process_comments": "santiago",
+            "sem_comments": "dilara",
+            "avg_fiber_diameter_nm": "45"
+        },
+        "source": "Streamlit App"
     }
 ]
