@@ -5,6 +5,10 @@ from datetime import datetime
 import pandas as pd
 import streamlit as st
 
+from ui.projects_page import render_projects_page
+from ui.materials_page import render_materials_page
+from ui.formulations_page import render_formulations_page
+from ui.setups_page import render_setups_page
 
 DATABASE_PATH = Path("data/processed/unified_experiments_database.json")
 
@@ -512,10 +516,32 @@ def create_new_experiment(data):
 # -----------------------------
 # STREAMLIT APP
 # -----------------------------
-st.set_page_config(
-    page_title="Fluidnatek AI Process Assistant",
-    layout="wide"
+page = st.sidebar.radio(
+    "Navigation",
+    [
+        "Main App",
+        "Projects",
+        "Materials",
+        "Formulations",
+        "Setups",
+    ]
 )
+
+if page == "Projects":
+    render_projects_page()
+    st.stop()
+
+if page == "Materials":
+    render_materials_page()
+    st.stop()
+    
+if page == "Formulations":
+    render_formulations_page()
+    st.stop()
+
+if page == "Setups":
+    render_setups_page()
+    st.stop()
 
 st.title("🧠 Fluidnatek AI Process Assistant")
 st.caption("Search previous electrospinning experiments before saving a new one.")

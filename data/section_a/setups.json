@@ -1,16 +1,1 @@
-[
-    {
-        "setup_id": "TEST_SETUP_001",
-        "name": "Test Custom Setup",
-        "machine": "Fluidnatek Test Machine",
-        "injector_model_id": "TEST_INJECTOR_001",
-        "collector_model_id": "TEST_COLLECTOR_001",
-        "number_of_needles": 4,
-        "needle_gauge": "21G",
-        "platform": "Test Platform",
-        "custom_configuration": {
-            "custom_note": "Temporary test configuration"
-        },
-        "notes": ""
-    }
-]
+[]

@@ -1,12 +1,1 @@
-[
-    {
-        "characterization_id": "TEST_CHARACTERIZATION_001",
-        "formulation_id": "TEST_FORMULATION_001",
-        "measurement_date": "2026-07-21",
-        "viscosity": 500.0,
-        "conductivity": 20.0,
-        "surface_tension": 35.0,
-        "solid_content": 10.0,
-        "notes": ""
-    }
-]
+[]
