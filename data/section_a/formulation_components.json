@@ -1,0 +1,18 @@
+[
+    {
+        "formulation_component_id": "TEST_COMPONENT_POLYMER",
+        "formulation_id": "TEST_FORMULATION_001",
+        "material_id": "TEST_MATERIAL_TPU",
+        "component_role": "polymer",
+        "concentration": 10.0,
+        "ratio": null
+    },
+    {
+        "formulation_component_id": "TEST_COMPONENT_SOLVENT",
+        "formulation_id": "TEST_FORMULATION_001",
+        "material_id": "TEST_MATERIAL_DMF",
+        "component_role": "solvent",
+        "concentration": null,
+        "ratio": 100.0
+    }
+]

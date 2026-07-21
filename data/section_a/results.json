@@ -1,0 +1,9 @@
+[
+    {
+        "result_id": "TEST_RESULT_001",
+        "run_id": "TEST_RUN_001",
+        "sem_morphology": "Uniform fibers",
+        "filtration_performance": "Test filtration result",
+        "notes": "Section A test result"
+    }
+]

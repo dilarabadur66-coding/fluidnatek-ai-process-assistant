@@ -1,0 +1,8 @@
+[
+    {
+        "formulation_id": "TEST_FORMULATION_001",
+        "project_id": "TEST_PROJECT_001",
+        "polymer_concentration": 10.0,
+        "notes": "Test formulation"
+    }
+]
