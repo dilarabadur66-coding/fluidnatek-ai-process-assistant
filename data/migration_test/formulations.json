@@ -1,0 +1,20 @@
+[
+    {
+        "formulation_id": "MIG_FORMULATION_1",
+        "project_id": "FTK-Example",
+        "polymer_concentration": null,
+        "notes": "Migrated historical formulation. Review traceability before production use."
+    },
+    {
+        "formulation_id": "FTK-CelAc-003\n(15% in 70% Acetone + 15% Water)",
+        "project_id": "LEGACY_EXCEL",
+        "polymer_concentration": null,
+        "notes": "Migrated historical formulation. Review traceability before production use."
+    },
+    {
+        "formulation_id": "FTK-CelAc-004\n(15% in 42.5% DMSO + 42.5% Eth.Ac.)",
+        "project_id": "LEGACY_EXCEL",
+        "polymer_concentration": null,
+        "notes": "Migrated historical formulation. Review traceability before production use."
+    }
+]

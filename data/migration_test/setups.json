@@ -1,0 +1,62 @@
+[
+    {
+        "setup_id": "FTK-Example_setup_1",
+        "name": "1",
+        "machine": "le100",
+        "injector_model_id": "",
+        "collector_model_id": "",
+        "number_of_needles": 5.0,
+        "needle_gauge": "22",
+        "platform": "rotacional",
+        "custom_configuration": {
+            "legacy_setup": {
+                "setup_id": "FTK-Example_setup_1",
+                "project_code": "FTK-Example",
+                "setup_number": 1,
+                "machine": "le100",
+                "platform": "rotacional",
+                "injector": 5,
+                "number_of_needles": 5,
+                "needle_gauge": 22,
+                "needle_distance": 3,
+                "deflectors": "",
+                "substrate": "",
+                "drum_type": "",
+                "drum_size": ""
+            }
+        },
+        "notes": "Migrated historical setup."
+    },
+    {
+        "setup_id": "MIG_SETUP_LEGACY_EXCEL_2",
+        "name": "MIG_SETUP_LEGACY_EXCEL_2",
+        "machine": "legacy setup",
+        "injector_model_id": "",
+        "collector_model_id": "",
+        "number_of_needles": null,
+        "needle_gauge": "",
+        "platform": "",
+        "custom_configuration": {
+            "legacy_setup": {
+                "machine": "legacy setup"
+            }
+        },
+        "notes": "Migrated historical setup."
+    },
+    {
+        "setup_id": "MIG_SETUP_LEGACY_EXCEL_3",
+        "name": "MIG_SETUP_LEGACY_EXCEL_3",
+        "machine": "legacy setup",
+        "injector_model_id": "",
+        "collector_model_id": "",
+        "number_of_needles": null,
+        "needle_gauge": "",
+        "platform": "",
+        "custom_configuration": {
+            "legacy_setup": {
+                "machine": "legacy setup"
+            }
+        },
+        "notes": "Migrated historical setup."
+    }
+]

@@ -1,0 +1,16 @@
+[
+    {
+        "result_id": "MIG_RESULT_b105de07-bbec-41e4-aa9c-c206ad9053d2",
+        "run_id": "legacy_experiment_1",
+        "sem_morphology": "",
+        "filtration_performance": "",
+        "notes": "Historical result migrated. Original avg fiber diameter: "
+    },
+    {
+        "result_id": "MIG_RESULT_c6426e9f-39b3-44f2-a89f-a6b25cf7336a",
+        "run_id": "legacy_experiment_2",
+        "sem_morphology": "",
+        "filtration_performance": "",
+        "notes": "Historical result migrated. Original avg fiber diameter: "
+    }
+]

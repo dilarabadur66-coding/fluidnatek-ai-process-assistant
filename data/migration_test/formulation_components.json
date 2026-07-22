@@ -1,0 +1,18 @@
+[
+    {
+        "formulation_component_id": "MIG_COMP_599f2fea-61c8-486b-8c91-67dbc5689372",
+        "formulation_id": "FTK-CelAc-003\n(15% in 70% Acetone + 15% Water)",
+        "material_id": "MIG_MAT_bd44046c-19fa-43a2-8cd6-1a1a2b3534f8",
+        "component_role": "polymer",
+        "concentration": null,
+        "ratio": null
+    },
+    {
+        "formulation_component_id": "MIG_COMP_a6fb50d2-a103-4e92-8f23-9f131ec4655a",
+        "formulation_id": "FTK-CelAc-004\n(15% in 42.5% DMSO + 42.5% Eth.Ac.)",
+        "material_id": "MIG_MAT_92db80cf-213d-4e0a-88a3-367c3cf446d7",
+        "component_role": "polymer",
+        "concentration": null,
+        "ratio": null
+    }
+]

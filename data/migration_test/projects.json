@@ -1,0 +1,18 @@
+[
+    {
+        "project_id": "FTK-Example",
+        "project_code": "FTK-Example",
+        "beas_code": "",
+        "client": "Anonimo",
+        "rd_leader": "Sin asignar",
+        "year": null
+    },
+    {
+        "project_id": "LEGACY_EXCEL",
+        "project_code": "LEGACY_EXCEL",
+        "beas_code": "",
+        "client": "Historical Excel Import",
+        "rd_leader": "",
+        "year": null
+    }
+]
