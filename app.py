@@ -9,6 +9,8 @@ from ui.projects_page import render_projects_page
 from ui.materials_page import render_materials_page
 from ui.formulations_page import render_formulations_page
 from ui.setups_page import render_setups_page
+from ui.runs_page import render_runs_page
+from ui.results_page import render_results_page
 
 DATABASE_PATH = Path("data/processed/unified_experiments_database.json")
 
@@ -524,6 +526,8 @@ page = st.sidebar.radio(
         "Materials",
         "Formulations",
         "Setups",
+        "Experimental Runs",
+        "Results",
     ]
 )
 
@@ -541,6 +545,14 @@ if page == "Formulations":
 
 if page == "Setups":
     render_setups_page()
+    st.stop()
+    
+if page == "Experimental Runs":
+    render_runs_page()
+    st.stop()
+
+if page == "Results":
+    render_results_page()
     st.stop()
 
 st.title("🧠 Fluidnatek AI Process Assistant")

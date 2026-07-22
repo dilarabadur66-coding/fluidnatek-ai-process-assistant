@@ -1,1 +1,21 @@
-[]
+[
+    {
+        "run_id": "504256c8-996e-4083-b738-6549bccfd7d1",
+        "sample_code": "2.SETUP",
+        "project_id": "a69aba3c-c498-49d3-9c7f-718028e23dd8",
+        "formulation_id": "2.FORMUL",
+        "setup_id": "d99b5a39-015e-4229-aba7-cc93b407f26c",
+        "date": "2026-07-22",
+        "purpose": "LOOK HAO IT  IS ?",
+        "flow_rate": 0.5,
+        "injector_voltage": 0.5,
+        "collector_voltage": 0.5,
+        "relative_humidity": 40.1,
+        "temperature": 25.4,
+        "drum_speed": 3.0,
+        "working_distance": 0.4,
+        "processability_score": 3,
+        "process_comments": "2.PROVE",
+        "is_incomplete": false
+    }
+]

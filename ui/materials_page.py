@@ -84,30 +84,52 @@ def render_materials_page():
         )
 
     if submitted:
-        if not material_name.strip():
-            st.error("Material Name is required.")
-            return
+     if not material_name.strip():
+        st.error("Material Name is required.")
+        return
 
-        material = Material(
-            material_id=str(uuid.uuid4()),
-            material_name=material_name.strip(),
-            material_type=material_type,
-            molecular_weight=molecular_weight.strip(),
-            supplier=supplier.strip(),
-            article_number=article_number.strip(),
-            batch_number=batch_number.strip(),
-            notes=notes.strip(),
+    existing_materials = list_materials()
+
+    duplicate_material = any(
+        material.get("material_name", "").strip().lower()
+        == material_name.strip().lower()
+        and material.get("molecular_weight", "").strip().lower()
+        == molecular_weight.strip().lower()
+        and material.get("supplier", "").strip().lower()
+        == supplier.strip().lower()
+        and material.get("article_number", "").strip().lower()
+        == article_number.strip().lower()
+        and material.get("batch_number", "").strip().lower()
+        == batch_number.strip().lower()
+        for material in existing_materials
+    )
+
+    if duplicate_material:
+        st.error(
+            "This material already exists with the same traceability information."
+        )
+        return
+
+    material = Material(
+        material_id=str(uuid.uuid4()),
+        material_name=material_name.strip(),
+        material_type=material_type,
+        molecular_weight=molecular_weight.strip(),
+        supplier=supplier.strip(),
+        article_number=article_number.strip(),
+        batch_number=batch_number.strip(),
+        notes=notes.strip(),
+    )
+
+    try:
+        add_material(material)
+
+        st.success(
+            f"Material created successfully: "
+            f"{material_name}"
         )
 
-        try:
-            add_material(material)
+        st.rerun()
 
-            st.success(
-                f"Material created successfully: "
-                f"{material_name}"
-            )
-
-            st.rerun()
-
-        except ValueError as error:
-            st.error(str(error))
+    except ValueError as error:
+        st.error(str(error))

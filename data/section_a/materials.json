@@ -1,1 +1,32 @@
-[]
+[
+    {
+        "material_id": "1afff68f-25c4-468d-b638-12c1b129e25a",
+        "material_name": "",
+        "material_type": "polymer",
+        "molecular_weight": "",
+        "supplier": "",
+        "article_number": "",
+        "batch_number": "",
+        "notes": ""
+    },
+    {
+        "material_id": "e8c4f7a7-c186-4d8a-9473-83c5cf045a80",
+        "material_name": "2. MATERIAL",
+        "material_type": "polymer",
+        "molecular_weight": "100",
+        "supplier": "NAPIYON",
+        "article_number": "1",
+        "batch_number": "2",
+        "notes": "2. MATERIA POLY"
+    },
+    {
+        "material_id": "623efc6e-0bb6-4eca-9ad6-8dc3e50520bf",
+        "material_name": "2.SOLVENT",
+        "material_type": "solvent",
+        "molecular_weight": "100",
+        "supplier": "NASILSIN",
+        "article_number": "1",
+        "batch_number": "2",
+        "notes": "2 SOLVENT"
+    }
+]

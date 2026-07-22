@@ -380,14 +380,12 @@ def render_formulations_page():
             "Characterization Notes"
         )
 
-        characterization_submitted = (
-            st.form_submit_button(
-                "Add Characterization"
-            )
-            )
+        characterization_submitted = st.form_submit_button(
+            "Add Characterization"
+        )
+
     if characterization_submitted:
 
-        # Prevent completely empty characterization records
         has_measurement = any([
             viscosity > 0,
             conductivity > 0,
@@ -401,27 +399,27 @@ def render_formulations_page():
             )
             return
 
-    characterization = Characterization(
-        characterization_id=str(uuid.uuid4()),
-        formulation_id=characterization_formulation_id,
-        measurement_date=measurement_date.strip(),
-        viscosity=viscosity,
-        conductivity=conductivity,
-        surface_tension=surface_tension,
-        solid_content=solid_content,
-        notes=characterization_notes.strip(),
-    )
-
-    try:
-        add_characterization(
-            characterization
+        characterization = Characterization(
+            characterization_id=str(uuid.uuid4()),
+            formulation_id=characterization_formulation_id,
+            measurement_date=measurement_date.strip(),
+            viscosity=viscosity,
+            conductivity=conductivity,
+            surface_tension=surface_tension,
+            solid_content=solid_content,
+            notes=characterization_notes.strip(),
         )
 
-        st.success(
-            "Characterization added successfully."
-        )
+        try:
+            add_characterization(
+                characterization
+            )
 
-        st.rerun()
+            st.success(
+                "Characterization added successfully."
+            )
 
-    except ValueError as error:
-        st.error(str(error))
+            st.rerun()
+
+        except ValueError as error:
+            st.error(str(error))

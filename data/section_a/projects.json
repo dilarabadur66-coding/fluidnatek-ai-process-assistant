@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "project_id": "a69aba3c-c498-49d3-9c7f-718028e23dd8",
+        "project_code": "2.DENEY",
+        "beas_code": "BEAS_TEST",
+        "client": "Internal Test",
+        "rd_leader": "Santiago",
+        "year": 2026
+    }
+]
