@@ -1,0 +1,16 @@
+[
+    {
+        "setup_id": "d99b5a39-015e-4229-aba7-cc93b407f26c",
+        "name": "NABER",
+        "machine": "L100",
+        "injector_model_id": "4c9d07c5-b281-4fda-be45-fec026d5985f",
+        "collector_model_id": "b44a5162-9869-4542-b5be-64dcf7df2737",
+        "number_of_needles": 1,
+        "needle_gauge": "4",
+        "platform": "AAA",
+        "custom_configuration": {
+            "details": "BEEEEE"
+        },
+        "notes": "CEEE"
+    }
+]

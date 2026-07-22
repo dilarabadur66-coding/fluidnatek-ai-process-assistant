@@ -1,0 +1,18 @@
+[
+    {
+        "formulation_component_id": "fb135890-de88-44fc-9f0f-74593b9956e6",
+        "formulation_id": "2.FORMUL",
+        "material_id": "1afff68f-25c4-468d-b638-12c1b129e25a",
+        "component_role": "polymer",
+        "concentration": 10.0,
+        "ratio": null
+    },
+    {
+        "formulation_component_id": "a1317c1d-82bf-4eb0-b739-cdaeaaa607de",
+        "formulation_id": "2.FORMUL",
+        "material_id": "623efc6e-0bb6-4eca-9ad6-8dc3e50520bf",
+        "component_role": "solvent",
+        "concentration": null,
+        "ratio": 100.0
+    }
+]
