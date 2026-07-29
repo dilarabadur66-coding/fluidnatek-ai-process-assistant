@@ -197,6 +197,7 @@ def build_unified_records():
             "project": {
                 "project_code": PROJECT_CODE,
                 "client": "",
+                "start_date": "",
                 "rd_leader": "",
             },
             "materials": [],
