@@ -1,10 +1,9 @@
-import json
-from pathlib import Path
-from datetime import datetime
+import re
 
 import pandas as pd
 import streamlit as st
 
+from memory.section_a_memory_adapter import build_section_a_memory_records
 from ui.projects_page import render_projects_page
 from ui.materials_page import render_materials_page
 from ui.formulations_page import render_formulations_page
@@ -12,218 +11,600 @@ from ui.setups_page import render_setups_page
 from ui.runs_page import render_runs_page
 from ui.results_page import render_results_page
 
-DATABASE_PATH = Path("data/processed/unified_experiments_database.json")
+
+st.set_page_config(
+    page_title="Fluidnatek AI Process Assistant",
+    layout="wide",
+)
 
 
-# -----------------------------
-# DATABASE HELPERS
-# -----------------------------
+# ============================================================
+# DATA
+# ============================================================
 def load_database():
-    if not DATABASE_PATH.exists():
-        return []
-
-    with open(DATABASE_PATH, "r", encoding="utf-8") as file:
-        return json.load(file)
+    return build_section_a_memory_records()
 
 
-def save_database(records):
-    DATABASE_PATH.parent.mkdir(parents=True, exist_ok=True)
-
-    with open(DATABASE_PATH, "w", encoding="utf-8") as file:
-        json.dump(records, file, indent=4, ensure_ascii=False, default=str)
-
-
+# ============================================================
+# BASIC HELPERS
+# ============================================================
 def to_float(value):
     try:
-        if value in ["", None]:
+        if value in ("", None):
             return None
         return float(value)
-    except Exception:
+    except (TypeError, ValueError):
         return None
 
 
-# -----------------------------
-# DROPDOWN OPTIONS
-# -----------------------------
+def normalize_text(value):
+    if value is None:
+        return ""
+    return str(value).strip().lower()
+
+
 def unique_sorted(values):
-    clean_values = []
+    result = []
 
     for value in values:
-        if value not in ["", None, {}] and value not in clean_values:
-            clean_values.append(value)
+        if value in ("", None, {}):
+            continue
 
-    return sorted(clean_values)
+        if value not in result:
+            result.append(value)
+
+    return sorted(
+        result,
+        key=lambda item: str(item).lower(),
+    )
 
 
-def get_project_options(records):
-    return unique_sorted([
+def exact_text_match(left, right):
+    left = normalize_text(left)
+    right = normalize_text(right)
+
+    return bool(
+        left
+        and right
+        and left == right
+    )
+
+
+def safe_text_match(left, right):
+    """
+    Safe partial text matching.
+    Empty strings never count as matches.
+    """
+    left = normalize_text(left)
+    right = normalize_text(right)
+
+    if not left or not right:
+        return False
+
+    return (
+        left == right
+        or left in right
+        or right in left
+    )
+
+
+def get_process(exp):
+    return exp.get("process_parameters", {}) or {}
+
+
+def get_setup(exp):
+    return exp.get("setup", {}) or {}
+
+
+def get_composition(exp):
+    return exp.get("solution_composition", {}) or {}
+
+
+def get_results(exp):
+    return exp.get("results", {}) or {}
+
+
+# ============================================================
+# USER-FACING OPTION CLEANUP
+# ============================================================
+def is_internal_value(value):
+    text = str(value or "").strip()
+
+    if not text:
+        return True
+
+    upper = text.upper()
+
+    return (
+        upper.startswith("MIG_FORM_")
+        or upper.startswith("MIG_SETUP_")
+        or upper.startswith("MIG_MAT_")
+        or upper.startswith("MIG_RESULT_")
+        or upper.startswith("__MISSING_")
+        or upper in {
+            "UNKNOWN_PROJECT",
+            "LEGACY_EXCEL",
+            "LEGACY SETUP",
+        }
+    )
+
+
+def clean_project_options(records):
+    return unique_sorted(
         record.get("project_code", "")
         for record in records
-    ])
+        if not is_internal_value(
+            record.get("project_code", "")
+        )
+    )
 
 
-def get_formula_options(records):
-    return unique_sorted([
+def clean_formula_options(records):
+    return unique_sorted(
         record.get("formula_id", "")
         for record in records
-    ])
+        if not is_internal_value(
+            record.get("formula_id", "")
+        )
+    )
 
 
-def get_polymer_options(records):
-    polymers = []
-
-    for record in records:
-        composition = record.get("solution_composition", {})
-        polymer = composition.get("polymer_a", "")
-
-        if polymer:
-            polymers.append(polymer)
-
-    return unique_sorted(polymers)
-
-
-def get_solvent_options(records):
-    solvents = []
-
-    for record in records:
-        composition = record.get("solution_composition", {})
-        solvent = composition.get("solvent_a", "")
-
-        if solvent:
-            solvents.append(solvent)
-
-    return unique_sorted(solvents)
-
-
-def get_machine_options(records):
-    return unique_sorted([
-        record.get("setup", {}).get("machine", "")
+def clean_material_options(records):
+    return unique_sorted(
+        get_composition(record).get("polymer_a", "")
         for record in records
-    ])
+        if get_composition(record).get("polymer_a", "")
+    )
 
 
-# -----------------------------
-# EXPERIMENT HELPERS
-# -----------------------------
-def get_process(exp):
-    return exp.get("process_parameters", {})
+def clean_solvent_options(records):
+    return unique_sorted(
+        get_composition(record).get("solvent_a", "")
+        for record in records
+        if get_composition(record).get("solvent_a", "")
+    )
 
 
+def normalize_machine(value):
+    """
+    Collapse historical spelling variants into user-facing machine families.
+    Example: L100, LE100, LE-100, le100 -> LE100
+    """
+    raw = str(value or "").strip()
+
+    if not raw:
+        return ""
+
+    compact = re.sub(
+        r"[^A-Z0-9]",
+        "",
+        raw.upper(),
+    )
+
+    if compact in {"L100", "LE100"}:
+        return "LE100"
+
+    if compact in {"L500", "LE500"}:
+        return "LE500"
+
+    if "LEGACY" in compact:
+        return ""
+
+    return raw
+
+
+def clean_machine_options(records):
+    return unique_sorted(
+        normalize_machine(
+            get_setup(record).get("machine", "")
+        )
+        for record in records
+        if normalize_machine(
+            get_setup(record).get("machine", "")
+        )
+    )
+
+
+def machine_match(left, right):
+    left_normalized = normalize_machine(left)
+    right_normalized = normalize_machine(right)
+
+    if not left_normalized or not right_normalized:
+        return False
+
+    return normalize_text(
+        left_normalized
+    ) == normalize_text(
+        right_normalized
+    )
+
+
+def resolve_select_or_custom(
+    label,
+    options,
+    any_label,
+    custom_label,
+    key_prefix,
+):
+    choices = [
+        any_label,
+        *options,
+        "Other / Custom...",
+    ]
+
+    selected = st.selectbox(
+        label,
+        choices,
+        key=f"{key_prefix}_select",
+    )
+
+    if selected == "Other / Custom...":
+        custom_value = st.text_input(
+            custom_label,
+            key=f"{key_prefix}_custom",
+            placeholder="Type a new value...",
+        )
+        return custom_value.strip()
+
+    if selected == any_label:
+        return ""
+
+    return selected
+
+
+# ============================================================
+# EXPERIMENT SUMMARY
+# ============================================================
 def summarize_experiment(exp):
-    process = exp.get("process_parameters", {})
-    setup = exp.get("setup", {})
-    composition = exp.get("solution_composition", {})
-    results = exp.get("results", {})
+    process = get_process(exp)
+    setup = get_setup(exp)
+    composition = get_composition(exp)
+    results = get_results(exp)
 
     return {
-        "experiment_id": exp.get("experiment_id", ""),
-        "project_code": exp.get("project_code", ""),
-        "formula_id": exp.get("formula_id", ""),
-        "material": composition.get("polymer_a", ""),
-        "solvent": composition.get("solvent_a", ""),
-        "machine": setup.get("machine", ""),
-        "Q1 (mL/h)": process.get("flow_rate_q1_ml_h", ""),
-        "HV+ (kV)": process.get("hv_positive_kv", ""),
-        "HV- (kV)": process.get("hv_negative_kv", ""),
-        "T (°C)": process.get("temperature_c", ""),
-        "RH (%)": process.get("relative_humidity_percent", ""),
-        "Position Y": process.get("position_y", ""),
-        "dZ (mm)": process.get("dz_mm", ""),
-        "grade": results.get("processability_grade", ""),
-        "fiber_diameter_nm": results.get("avg_fiber_diameter_nm", ""),
-        "comments": results.get("process_comments", ""),
+        "experiment_id": exp.get(
+            "experiment_id",
+            "",
+        ),
+        "project_code": exp.get(
+            "project_code",
+            "",
+        ),
+        "formula_id": (
+            ""
+            if is_internal_value(
+                exp.get("formula_id", "")
+            )
+            else exp.get("formula_id", "")
+        ),
+        "polymer": composition.get(
+            "polymer_a",
+            "",
+        ),
+        "solvent": composition.get(
+            "solvent_a",
+            "",
+        ),
+        "machine": normalize_machine(
+            setup.get("machine", "")
+        ),
+        "Q1 (mL/h)": process.get(
+            "flow_rate_q1_ml_h",
+            "",
+        ),
+        "HV+ (kV)": process.get(
+            "hv_positive_kv",
+            "",
+        ),
+        "HV- (kV)": process.get(
+            "hv_negative_kv",
+            "",
+        ),
+        "T (°C)": process.get(
+            "temperature_c",
+            "",
+        ),
+        "RH (%)": process.get(
+            "relative_humidity_percent",
+            "",
+        ),
+        "dZ (mm)": process.get(
+            "dz_mm",
+            "",
+        ),
+        "grade": results.get(
+            "processability_grade",
+            "",
+        ),
+        "comments": results.get(
+            "process_comments",
+            "",
+        ),
     }
 
 
+# ============================================================
+# CONTEXT-AWARE GLOBAL SEARCH
+# ============================================================
+def context_tier(exp, query):
+    """
+    Search is global across Section A.
+
+    4 = exact known formulation
+    3 = same polymer + solvent
+    2 = same polymer
+    1 = same solvent OR fully broad/global query
+    0 = incompatible with the selected scientific context
+    """
+    composition = get_composition(exp)
+
+    formula_query = query.get(
+        "formula_id",
+        "",
+    )
+    polymer_query = query.get(
+        "material",
+        "",
+    )
+    solvent_query = query.get(
+        "solvent",
+        "",
+    )
+
+    formula_match = (
+        bool(formula_query)
+        and exact_text_match(
+            exp.get("formula_id", ""),
+            formula_query,
+        )
+    )
+
+    polymer_match = (
+        bool(polymer_query)
+        and safe_text_match(
+            composition.get("polymer_a", ""),
+            polymer_query,
+        )
+    )
+
+    solvent_match = (
+        bool(solvent_query)
+        and safe_text_match(
+            composition.get("solvent_a", ""),
+            solvent_query,
+        )
+    )
+
+    if formula_match:
+        return 4
+
+    if polymer_match and solvent_match:
+        return 3
+
+    if polymer_match:
+        return 2
+
+    if solvent_match:
+        return 1
+
+    # Nothing scientific was specified:
+    # allow a global process-parameter search.
+    if not (
+        formula_query
+        or polymer_query
+        or solvent_query
+    ):
+        return 1
+
+    return 0
+
+
 def similarity_score(exp, query):
-    score = 0
-    max_score = 0
+    score = 0.0
+    max_score = 0.0
 
-    process = exp.get("process_parameters", {})
-    setup = exp.get("setup", {})
-    composition = exp.get("solution_composition", {})
+    process = get_process(exp)
+    setup = get_setup(exp)
+    composition = get_composition(exp)
 
-    max_score += 25
-    material_text = str(composition.get("polymer_a", "")).lower()
-    query_material = str(query.get("material", "")).lower()
-
-    if query_material and (
-        query_material in material_text or material_text in query_material
-    ):
-        score += 25
-
-    max_score += 15
-    solvent_text = str(composition.get("solvent_a", "")).lower()
-    query_solvent = str(query.get("solvent", "")).lower()
-
-    if query_solvent and (
-        query_solvent in solvent_text or solvent_text in query_solvent
-    ):
-        score += 15
-
-    max_score += 10
-    machine_text = str(setup.get("machine", "")).lower()
-    query_machine = str(query.get("machine", "")).lower()
-
-    if query_machine and (
-        query_machine in machine_text or machine_text in query_machine
-    ):
-        score += 10
-
-    numeric_fields = [
-        ("flow_rate_q1_ml_h", "flow", 15, 0.5),
-        ("hv_positive_kv", "hv_plus", 15, 2.0),
-        ("hv_negative_kv", "hv_minus", 5, 2.0),
-        ("temperature_c", "temperature", 5, 5.0),
-        ("relative_humidity_percent", "humidity", 5, 10.0),
-        ("position_y", "position_y", 10, 20.0),
-        ("dz_mm", "dz", 10, 20.0),
+    context_fields = [
+        (
+            exp.get("formula_id", ""),
+            query.get("formula_id", ""),
+            35,
+            exact_text_match,
+        ),
+        (
+            composition.get("polymer_a", ""),
+            query.get("material", ""),
+            25,
+            safe_text_match,
+        ),
+        (
+            composition.get("solvent_a", ""),
+            query.get("solvent", ""),
+            15,
+            safe_text_match,
+        ),
+        (
+            setup.get("machine", ""),
+            query.get("machine", ""),
+            10,
+            machine_match,
+        ),
+        (
+            exp.get("project_code", ""),
+            query.get("project_code", ""),
+            5,
+            exact_text_match,
+        ),
     ]
 
-    for exp_key, query_key, weight, tolerance in numeric_fields:
-        max_score += weight
-
-        exp_value = to_float(process.get(exp_key, ""))
-        query_value = to_float(query.get(query_key, ""))
-
-        if exp_value is None or query_value is None:
+    for (
+        experiment_value,
+        query_value,
+        weight,
+        matcher,
+    ) in context_fields:
+        if not normalize_text(
+            query_value
+        ):
             continue
 
-        difference = abs(exp_value - query_value)
+        max_score += weight
+
+        if matcher(
+            experiment_value,
+            query_value,
+        ):
+            score += weight
+
+    numeric_fields = [
+        (
+            "flow_rate_q1_ml_h",
+            "flow",
+            15,
+            0.5,
+        ),
+        (
+            "hv_positive_kv",
+            "hv_plus",
+            15,
+            2.0,
+        ),
+        (
+            "hv_negative_kv",
+            "hv_minus",
+            5,
+            2.0,
+        ),
+        (
+            "temperature_c",
+            "temperature",
+            5,
+            5.0,
+        ),
+        (
+            "relative_humidity_percent",
+            "humidity",
+            5,
+            10.0,
+        ),
+        (
+            "dz_mm",
+            "dz",
+            10,
+            20.0,
+        ),
+    ]
+
+    for (
+        exp_key,
+        query_key,
+        weight,
+        tolerance,
+    ) in numeric_fields:
+        query_value = to_float(
+            query.get(query_key)
+        )
+
+        if query_value is None:
+            continue
+
+        max_score += weight
+
+        experiment_value = to_float(
+            process.get(exp_key)
+        )
+
+        if experiment_value is None:
+            continue
+
+        difference = abs(
+            experiment_value
+            - query_value
+        )
 
         if difference == 0:
             score += weight
         elif difference <= tolerance:
             score += weight * 0.75
-        elif difference <= tolerance * 2:
-            score += weight * 0.4
+        elif difference <= (
+            tolerance * 2
+        ):
+            score += weight * 0.40
 
-    if max_score == 0:
-        return 0
+    if max_score <= 0:
+        return 0.0
 
-    return round((score / max_score) * 100, 2)
+    return round(
+        score / max_score * 100,
+        2,
+    )
 
 
 def search_similar_experiments(
     records,
     query,
-    minimum_similarity=50,
-    maximum_results=10
+    minimum_similarity=30,
+    maximum_results=12,
 ):
-    scored = []
+    candidates = []
 
-    for exp in records:
-        score = similarity_score(exp, query)
+    for experiment in records:
+        tier = context_tier(
+            experiment,
+            query,
+        )
+
+        if tier == 0:
+            continue
+
+        score = similarity_score(
+            experiment,
+            query,
+        )
 
         if score >= minimum_similarity:
-            scored.append((score, exp))
+            candidates.append(
+                {
+                    "tier": tier,
+                    "score": score,
+                    "experiment": experiment,
+                }
+            )
 
-    scored.sort(key=lambda item: item[0], reverse=True)
+    if not candidates:
+        return []
 
-    return scored[:maximum_results]
-    
+    highest_tier = max(
+        candidate["tier"]
+        for candidate in candidates
+    )
 
-def calculate_numeric_summary(values):
+    strongest_context = [
+        candidate
+        for candidate in candidates
+        if candidate["tier"]
+        == highest_tier
+    ]
+
+    strongest_context.sort(
+        key=lambda item: item["score"],
+        reverse=True,
+    )
+
+    return strongest_context[
+        :maximum_results
+    ]
+
+
+# ============================================================
+# GRADE 4 ANALYSIS
+# ============================================================
+def calculate_numeric_summary(
+    values,
+):
     clean_values = [
         value
         for value in values
@@ -234,290 +615,283 @@ def calculate_numeric_summary(values):
         return None
 
     return {
-        "minimum": round(min(clean_values), 2),
-        "maximum": round(max(clean_values), 2),
+        "minimum": round(
+            min(clean_values),
+            2,
+        ),
+        "maximum": round(
+            max(clean_values),
+            2,
+        ),
         "average": round(
-            sum(clean_values) / len(clean_values),
-            2
+            sum(clean_values)
+            / len(clean_values),
+            2,
         ),
     }
 
-def analyze_similar_experiments(similar_experiments, query):
-    successful_experiments = []
+
+def analyze_similar_experiments(
+    similar_experiments,
+    query,
+):
     all_grades = []
-    fiber_diameters = []
+    weighted_grades = []
+    grade_4_items = []
+    comments = []
 
     parameter_values = {
         "Q1 (mL/h)": [],
         "HV+ (kV)": [],
         "HV- (kV)": [],
-        "T (C)": [],
+        "T (°C)": [],
         "RH (%)": [],
-        "Position Y": [],
         "dZ (mm)": [],
     }
 
     process_keys = {
-        "Q1 (mL/h)": "flow_rate_q1_ml_h",
-        "HV+ (kV)": "hv_positive_kv",
-        "HV- (kV)": "hv_negative_kv",
-        "T (C)": "temperature_c",
-        "RH (%)": "relative_humidity_percent",
-        "Position Y": "position_y",
-        "dZ (mm)": "dz_mm",
+        "Q1 (mL/h)":
+            "flow_rate_q1_ml_h",
+        "HV+ (kV)":
+            "hv_positive_kv",
+        "HV- (kV)":
+            "hv_negative_kv",
+        "T (°C)":
+            "temperature_c",
+        "RH (%)":
+            "relative_humidity_percent",
+        "dZ (mm)":
+            "dz_mm",
     }
 
-    comments = []
+    for item in similar_experiments:
+        experiment = item[
+            "experiment"
+        ]
+        score = item["score"]
 
-    for score, experiment in similar_experiments:
-        process = experiment.get("process_parameters", {})
-        results = experiment.get("results", {})
-
-        grade = to_float(
-            results.get("processability_grade", "")
+        process = get_process(
+            experiment
+        )
+        results = get_results(
+            experiment
         )
 
-        fiber = to_float(
-            results.get("avg_fiber_diameter_nm", "")
+        grade = to_float(
+            results.get(
+                "processability_grade"
+            )
         )
 
         if grade is not None:
-            all_grades.append(grade)
+            all_grades.append(
+                grade
+            )
+            weighted_grades.append(
+                (
+                    grade,
+                    max(
+                        score,
+                        1.0,
+                    ),
+                )
+            )
 
-        if fiber is not None:
-            fiber_diameters.append(fiber)
+        if grade == 4:
+            grade_4_items.append(
+                item
+            )
 
-        if grade is not None and grade >= 3:
-            successful_experiments.append((score, experiment))
-
-            for label, process_key in process_keys.items():
+            for (
+                label,
+                process_key,
+            ) in process_keys.items():
                 value = to_float(
-                    process.get(process_key, "")
+                    process.get(
+                        process_key
+                    )
                 )
 
                 if value is not None:
-                    parameter_values[label].append(value)
+                    parameter_values[
+                        label
+                    ].append(
+                        value
+                    )
 
         comment = str(
-            results.get("process_comments", "")
+            results.get(
+                "process_comments",
+                "",
+            )
         ).strip()
 
-        if comment and comment not in comments:
-            comments.append(comment)
+        if (
+            comment
+            and comment not in comments
+        ):
+            comments.append(
+                comment
+            )
 
-    successful_count = len(successful_experiments)
-    total_count = len(similar_experiments)
+    graded_count = len(
+        all_grades
+    )
+    grade_4_count = len(
+        grade_4_items
+    )
 
-    if all_grades:
+    if weighted_grades:
+        numerator = sum(
+            grade * weight
+            for (
+                grade,
+                weight,
+            ) in weighted_grades
+        )
+        denominator = sum(
+            weight
+            for (
+                _,
+                weight,
+            ) in weighted_grades
+        )
+
         expected_grade = round(
-            sum(all_grades) / len(all_grades),
-            2
+            numerator
+            / denominator,
+            2,
         )
     else:
         expected_grade = None
 
-    if fiber_diameters:
-        expected_fiber = round(
-            sum(fiber_diameters) / len(fiber_diameters),
-            2
+    grade_4_rate = (
+        round(
+            grade_4_count
+            / graded_count
+            * 100,
+            1,
         )
-    else:
-        expected_fiber = None
+        if graded_count
+        else None
+    )
 
     process_window = {
-        label: calculate_numeric_summary(values)
-        for label, values in parameter_values.items()
+        label:
+            calculate_numeric_summary(
+                values
+            )
+        for (
+            label,
+            values,
+        ) in parameter_values.items()
     }
 
-    if total_count > 0:
-        success_rate = round(
-            successful_count / total_count * 100,
-            1
-        )
-    else:
-        success_rate = None
-
-    interpretation = []
-
-    if expected_grade is not None:
-        if expected_grade >= 3.5:
-            interpretation.append(
-                "Historical experiments indicate high expected processability."
-            )
-        elif expected_grade >= 3:
-            interpretation.append(
-                "Historical experiments indicate acceptable expected processability."
-            )
-        elif expected_grade >= 2:
-            interpretation.append(
-                "Historical results indicate moderate processability. Parameter optimization may be required."
-            )
-        else:
-            interpretation.append(
-                "Historical experiments indicate low expected processability."
-            )
-    else:
-        interpretation.append(
-            "There is not enough historical result data to estimate processability."
-        )
-
-    if expected_fiber is not None:
-        interpretation.append(
-            f"The expected average fiber diameter is approximately {expected_fiber} nm."
-        )
-    else:
-        interpretation.append(
-            "There is not enough historical fiber diameter data to make an estimate."
-        )
+    recommendation = {
+        label:
+            statistics["average"]
+        for (
+            label,
+            statistics,
+        ) in process_window.items()
+        if statistics is not None
+    }
 
     warnings = []
 
-    successful_rh = process_window.get("RH (%)")
-    successful_flow = process_window.get("Q1 (mL/h)")
-    successful_voltage = process_window.get("HV+ (kV)")
-
-    if successful_rh:
-        query_rh = to_float(query.get("humidity"))
-
-        if query_rh is not None and (
-            query_rh < successful_rh["minimum"]
-            or query_rh > successful_rh["maximum"]
-        ):
-            warnings.append(
-                "The input RH value is outside the successful historical range."
-            )
-
-    if successful_flow:
-        query_flow = to_float(query.get("flow"))
-
-        if query_flow is not None and (
-            query_flow < successful_flow["minimum"]
-            or query_flow > successful_flow["maximum"]
-        ):
-            warnings.append(
-                "The input Q1 value is outside the successful historical range."
-            )
-
-    if successful_voltage:
-        query_voltage = to_float(query.get("hv_plus"))
-
-        if query_voltage is not None and (
-            query_voltage < successful_voltage["minimum"]
-            or query_voltage > successful_voltage["maximum"]
-        ):
-            warnings.append(
-                "The input HV+ value is outside the successful historical range."
-            )
-
-    return {
-        "total_similar_experiments": total_count,
-        "successful_experiments": successful_count,
-        "success_rate_percent": success_rate,
-        "expected_processability_grade": expected_grade,
-        "expected_fiber_diameter_nm": expected_fiber,
-        "interpretation": interpretation,
-        "recommended_process_window": process_window,
-        "warnings": warnings,
-        "historical_comments": comments[:5],
+    query_key_map = {
+        "Q1 (mL/h)": "flow",
+        "HV+ (kV)": "hv_plus",
+        "HV- (kV)": "hv_minus",
+        "T (°C)": "temperature",
+        "RH (%)": "humidity",
+        "dZ (mm)": "dz",
     }
 
-def predict_result(similar_experiments):
-    grades = []
-    fiber_diameters = []
+    for (
+        label,
+        statistics,
+    ) in process_window.items():
+        if not statistics:
+            continue
 
-    for _, exp in similar_experiments:
-        results = exp.get("results", {})
+        query_value = to_float(
+            query.get(
+                query_key_map[label]
+            )
+        )
 
-        grade = to_float(results.get("processability_grade", ""))
-        fiber = to_float(results.get("avg_fiber_diameter_nm", ""))
+        if query_value is None:
+            continue
 
-        if grade is not None:
-            grades.append(grade)
+        if (
+            query_value
+            < statistics["minimum"]
+            or query_value
+            > statistics["maximum"]
+        ):
+            warnings.append(
+                f"{label} is outside the "
+                f"historical Grade 4 range "
+                f"({statistics['minimum']} – "
+                f"{statistics['maximum']})."
+            )
 
-        if fiber is not None:
-            fiber_diameters.append(fiber)
-
-    if grades:
-        estimated_grade = round(sum(grades) / len(grades), 2)
+    if expected_grade is None:
+        interpretation = (
+            "Not enough graded historical "
+            "data for a reliable estimate."
+        )
+    elif expected_grade >= 3.5:
+        interpretation = (
+            "Historical evidence is close "
+            "to the Grade 4 target."
+        )
+    elif expected_grade >= 3:
+        interpretation = (
+            "The process appears workable, "
+            "but optimization is still needed "
+            "to reliably reach Grade 4."
+        )
+    elif expected_grade >= 2:
+        interpretation = (
+            "Historical evidence suggests "
+            "moderate processability. "
+            "Parameter optimization is recommended."
+        )
     else:
-        estimated_grade = "Not enough previous grade data"
-
-    if fiber_diameters:
-        estimated_fiber = round(sum(fiber_diameters) / len(fiber_diameters), 2)
-    else:
-       estimated_fiber = "No fiber diameter data found in historical memory"
+        interpretation = (
+            "Historical evidence suggests low "
+            "processability for the current conditions."
+        )
 
     return {
-        "estimated_processability_grade": estimated_grade,
-        "estimated_fiber_diameter_nm": estimated_fiber,
-        "based_on_experiments": len(similar_experiments),
+        "total":
+            len(similar_experiments),
+        "graded":
+            graded_count,
+        "grade_4":
+            grade_4_count,
+        "grade_4_rate":
+            grade_4_rate,
+        "expected_grade":
+            expected_grade,
+        "process_window":
+            process_window,
+        "recommendation":
+            recommendation,
+        "warnings":
+            warnings,
+        "comments":
+            comments[:5],
+        "interpretation":
+            interpretation,
     }
 
 
-def create_new_experiment(data):
-    experiment_id = (
-        f"{data['project_code']}_experiment_"
-        f"{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-    )
-
-    return {
-        "experiment_id": experiment_id,
-         "sample_code": data["sample_code"],
-        "project_code": data["project_code"],
-        "project": {
-            "project_code": data["project_code"],
-            "client": data["client"],
-            "start_date": data["date"],
-            "rd_leader": data["operator"],
-        },
-        "materials": [
-            {
-                "project_code": data["project_code"],
-                "material_name": data["material"],
-            },
-            {
-                "project_code": data["project_code"],
-                "material_name": data["solvent"],
-            },
-        ],
-        "formula_id": data["formula_id"],
-        "solution_composition": {
-            "formula_id": data["formula_id"],
-            "polymer_a": data["material"],
-            "polymer_a_percentage": data["concentration"],
-            "solvent_a": data["solvent"],
-            "solvent_a_percentage": data["solvent_percentage"],
-        },
-        "solution_properties": {
-            "viscosity_cP": data["viscosity"],
-            "conductivity_microS": data["conductivity"],
-        },
-        "setup": {
-            "setup_number": data["setup_number"],
-            "machine": data["machine"],
-            "platform": data["platform"],
-        },
-        "process_parameters": {
-            "flow_rate_q1_ml_h": data["flow"],
-            "hv_positive_kv": data["hv_plus"],
-            "hv_negative_kv": data["hv_minus"],
-            "temperature_c": data["temperature"],
-            "relative_humidity_percent": data["humidity"],
-            "position_y": data["position_y"],
-            "dz_mm": data["dz"],
-        },
-        "results": {
-            "processability_grade": data["grade"],
-            "process_comments": data["comments"],
-            "sem_comments": data["sem_comments"],
-            "avg_fiber_diameter_nm": data["fiber_diameter"],
-        },
-        "source": "Streamlit App",
-    }
-
-# -----------------------------
-# STREAMLIT APP
-# -----------------------------
+# ============================================================
+# NAVIGATION
+# ============================================================
 page = st.sidebar.radio(
     "Navigation",
     [
@@ -528,7 +902,7 @@ page = st.sidebar.radio(
         "Setups",
         "Experimental Runs",
         "Results",
-    ]
+    ],
 )
 
 if page == "Projects":
@@ -538,7 +912,7 @@ if page == "Projects":
 if page == "Materials":
     render_materials_page()
     st.stop()
-    
+
 if page == "Formulations":
     render_formulations_page()
     st.stop()
@@ -546,7 +920,7 @@ if page == "Formulations":
 if page == "Setups":
     render_setups_page()
     st.stop()
-    
+
 if page == "Experimental Runs":
     render_runs_page()
     st.stop()
@@ -555,436 +929,567 @@ if page == "Results":
     render_results_page()
     st.stop()
 
-st.title("🧠 Fluidnatek AI Process Assistant")
-st.caption("Search previous electrospinning experiments before saving a new one.")
 
+# ============================================================
+# MAIN APP
+# ============================================================
 records = load_database()
 
-project_options = [
-    "FTK-Example",
-    "LEGACY_EXCEL",
-]
+st.title(
+    "🧠 Fluidnatek AI Process Assistant"
+)
 
-formula_options = [
-    "FTK-Exa_PVA_1",
-    "FTK-Exa_PVA_2",
-]
+st.caption(
+    "Define the experiment you want to run. "
+    "The assistant searches the complete Section A "
+    "historical database and learns from Grade 4 results."
+)
 
-polymer_options = [
-    "PES - Polietersulfona - ULTRASON E 6020 P",
-    "AcCell - Acetato de celulosa 100kDa - Fischer",
-    "PEO - 900kDa - Merck",
-    "PEO - 600kDa - Polyox",
-    "PEO - 7MDa - Polyox",
-    "PEO - 4MDa - Alroko",
-    "PEO - 2MDa - Polyox",
-    "PEO - 300kDa",
-    "PEO - 100kDa - SIGMA ALDRICH",
-    "PEO - 4MDa - Polyox",
-    "POLYVIDONE KOLLIDON 30 BASF",
-    "POLYVIDONE KOLLIDON 25 BASF",
-    "Cellulose acetate (acetato de celulosa), Sigma, 30 kDa",
-    "Ethyl Cellulose-SIGMA ALDRICH",
-    "HPMC 100CP - SIGMA ALDRICH",
-    "PEG - Polietilenglicol - 10kDa - Sigma Aldrich",
-    "PVP 360K MERCK - SIGMA ALDRICH",
-    "PCL 14000 - SIGMA ALDRICH",
-    "TECOPHILIC SP-80A-150",
-    "UBE NYLON 1022B",
-    "TECOPHILIC HP-60D-60",
-    "PEG - Polietilenglicol - 20kDa - Sigma Aldrich",
-    "RESOMER RG 503 H",
-    "EUDRAGIT FS 100",
-    "ZEINA",
-    "GELATIN NEOMODULUS",
-    "CHITOSAN FOOD GRADE",
-    "ALGINATE BR-L LOW VISCOSITY",
-    "CELLULOSE CAB (EASTMAN)",
-    "POLYACRYLONITRILE NUS",
-    "PEO - 300kDa - POLYOX",
-    "PVDF2821",
-    "PEOR400X-ALROKO",
-    "NYLON 6,6 - SIGMA ALDRICH",
-    "PA 6 SP 25 KDA",
-    "PVA PARTECK - EMPROVE ESSENTIAL",
-    "CARBOTHANE PC 3572D",
-    "TECOPHILIC HP-60D-35",
-    "POLYACRYLONITRILE POWDER",
-    "PEO - Xel01",
-    "XP-034 - Xel01",
-    "tecophilic SP-93A-100",
-    "ELASTOLLAN 1195A TPU BASF"
-]
+metric1, metric2 = st.columns(
+    2
+)
 
-solvent_options = [
-    "Agua destilada",
-    "Acetona",
-    "Etanol",
-    "DMSO - Dimetilsulfóxido - Merck",
-    "DCM - Diclorometano - Merck",
-    "DMC - Carbonato de dimetilo - Merck",
-    "EtOAc - Acetato de etilo - Merck",
-    "Ethyl Acetate (acetato de etilo) Sigma ACS reagent 99.5%",
-    "DMSO - Dimetilsulfóxido - ACS reagent - Merck",
-    "MeOH - Metanol - 99.6% - Sigma Aldrich",
-    "formic acid 98%",
-    "acetic acid - sigma-aldrich",
-    "Decane",
-    "Dodecane",
-    "Heptane",
-    "Hexadecane",
-    "Mineral Oil",
-    "Octane",
-    "Tetradecane",
-    "DMAc - Dimetilacetamida - Stockmeier Química"
-]
+with metric1:
+    st.metric(
+        "Experiments Available to Memory",
+        len(records),
+    )
 
-machine_options = [
-    "LE100",
-    "LE500",
-]
-platform_options = [
-    "rotacional",
-]
+with metric2:
+    st.metric(
+        "Optimization Target",
+        "Grade 4 / 4",
+    )
 
-setup_options = [
-    "1",
-]
-
-if not project_options:
-    project_options = ["FTK-Example"]
-
-if not formula_options:
-    formula_options = [""]
-
-if not polymer_options:
-    polymer_options = ["PEO"]
-
-if not solvent_options:
-    solvent_options = ["Agua destilada"]
-
-if not machine_options:
-    machine_options = ["le100"]
-
-if not platform_options:
-    platform_options = ["rotacional"]
-
-if not setup_options:
-    setup_options = ["1"]
-
-st.metric("Stored Unified Experiments", len(records))
+st.info(
+    "Project and formulation are optional context. "
+    "The search itself can learn across the entire database."
+)
 
 st.write("---")
+st.header(
+    "1️⃣ Define Target Experiment"
+)
+
 
 # -----------------------------
-# SEARCH + DECISION SECTION
+# PRIMARY TECHNICAL INPUTS
 # -----------------------------
-st.header("1️⃣ Enter Experiment Parameters")
+material_options = (
+    clean_material_options(
+        records
+    )
+)
 
-with st.form("search_form"):
-    st.subheader("Select formulation and setup")
+solvent_options = (
+    clean_solvent_options(
+        records
+    )
+)
 
-    col1, col2, col3 = st.columns(3)
+machine_options = (
+    clean_machine_options(
+        records
+    )
+)
+
+col1, col2, col3 = st.columns(
+    3
+)
+
+with col1:
+    material = resolve_select_or_custom(
+        label="Polymer / Material",
+        options=material_options,
+        any_label="Any Polymer",
+        custom_label="Custom / New Polymer or Material",
+        key_prefix="material",
+    )
+
+with col2:
+    solvent = resolve_select_or_custom(
+        label="Solvent",
+        options=solvent_options,
+        any_label="Any Solvent",
+        custom_label="Custom / New Solvent",
+        key_prefix="solvent",
+    )
+
+with col3:
+    machine = resolve_select_or_custom(
+        label="Machine",
+        options=machine_options,
+        any_label="Any Machine",
+        custom_label="Custom / New Machine",
+        key_prefix="machine",
+    )
+
+
+# -----------------------------
+# OPTIONAL CONTEXT
+# -----------------------------
+with st.expander(
+    "Optional project / formulation context",
+    expanded=False,
+):
+    st.caption(
+        "Use these only when you want to narrow or "
+        "boost the search. Internal migration IDs are hidden."
+    )
+
+    project_options = (
+        clean_project_options(
+            records
+        )
+    )
+
+    formula_options = (
+        clean_formula_options(
+            records
+        )
+    )
+
+    context_col1, context_col2 = (
+        st.columns(2)
+    )
+
+    with context_col1:
+        project_code = (
+            resolve_select_or_custom(
+                label="Project Context",
+                options=project_options,
+                any_label="All Projects",
+                custom_label="Custom / New Project Context",
+                key_prefix="project",
+            )
+        )
+
+    with context_col2:
+        formula_id = (
+            resolve_select_or_custom(
+                label="Formulation Context",
+                options=formula_options,
+                any_label="Any Formulation",
+                custom_label="Custom / New Formulation",
+                key_prefix="formula",
+            )
+        )
+
+
+# -----------------------------
+# PROCESS PARAMETERS
+# -----------------------------
+st.subheader(
+    "Critical Process Parameters"
+)
+
+with st.form(
+    "search_form"
+):
+    col1, col2, col3 = (
+        st.columns(3)
+    )
 
     with col1:
-        project_code = st.selectbox("Project Code", project_options)
-        formula_id = st.selectbox("Formula ID", formula_options)
+        flow = st.number_input(
+            "Q1 (mL/h)",
+            value=1.0,
+            step=0.1,
+        )
+
+        hv_plus = st.number_input(
+            "HV+ (kV)",
+            value=15.0,
+            step=0.1,
+        )
 
     with col2:
-        material = st.selectbox("Polymer / Material", polymer_options)
-        solvent = st.selectbox("Solvent", solvent_options)
+        hv_minus = st.number_input(
+            "HV- (kV)",
+            value=0.0,
+            step=0.1,
+        )
+
+        temperature = (
+            st.number_input(
+                "T (°C)",
+                value=25.0,
+                step=0.1,
+            )
+        )
 
     with col3:
-        machine = st.selectbox("Machine", machine_options)
+        humidity = st.number_input(
+            "RH (%)",
+            value=40.0,
+            step=0.1,
+        )
 
-    st.subheader("Enter critical process parameters")
+        dz = st.number_input(
+            "dZ (mm)",
+            value=150.0,
+            step=1.0,
+        )
 
-    col1, col2, col3 = st.columns(3)
+    submitted = (
+        st.form_submit_button(
+            "🔍 Analyze Grade 4 Potential"
+        )
+    )
 
-    with col1:
-        flow = st.number_input("Q1 (mL/h)", value=1.0, step=0.1)
-        hv_plus = st.number_input("HV+ (kV)", value=15.0, step=0.1)
-
-    with col2:
-        hv_minus = st.number_input("HV- (kV)", value=0.0, step=0.1)
-        temperature = st.number_input("T (°C)", value=25.0, step=0.1)
-
-    with col3:
-        humidity = st.number_input("RH (%)", value=40.0, step=0.1)
-        position_y = st.number_input("Position Y", value=0.0, step=1.0)
-        dz = st.number_input("dZ (mm)", value=150.0, step=1.0)
-
-    submitted = st.form_submit_button("🔍 Search Memory")
 
 query = {
-    "project_code": project_code,
-    "formula_id": formula_id,
-    "material": material,
-    "solvent": solvent,
-    "machine": machine,
-    "flow": flow,
-    "hv_plus": hv_plus,
-    "hv_minus": hv_minus,
-    "temperature": temperature,
-    "humidity": humidity,
-    "position_y": position_y,
-    "dz": dz,
+    "project_code":
+        project_code,
+    "formula_id":
+        formula_id,
+    "material":
+        material,
+    "solvent":
+        solvent,
+    "machine":
+        machine,
+    "flow":
+        flow,
+    "hv_plus":
+        hv_plus,
+    "hv_minus":
+        hv_minus,
+    "temperature":
+        temperature,
+    "humidity":
+        humidity,
+    "dz":
+        dz,
 }
 
-if submitted:
-    similar = search_similar_experiments(records, query)
 
-    st.session_state["last_query"] = query
-    st.session_state["similar_results"] = similar
+if submitted:
+    similar = (
+        search_similar_experiments(
+            records,
+            query,
+        )
+    )
+
+    st.session_state[
+        "last_query"
+    ] = query
+
+    st.session_state[
+        "similar_results"
+    ] = similar
+
 
 similar = st.session_state.get(
     "similar_results",
-    []
+    [],
 )
 
+query_from_state = (
+    st.session_state.get(
+        "last_query",
+        query,
+    )
+)
+
+
+# ============================================================
+# ASSESSMENT
+# ============================================================
 if similar:
+    context_name = {
+        4: "Exact formulation",
+        3: "Same polymer + solvent",
+        2: "Same polymer",
+        1: "Global / solvent context",
+    }.get(
+        similar[0]["tier"],
+        "Historical context",
+    )
+
     st.success(
-        f"{len(similar)} relevant historical experiment(s) found."
+        f"{len(similar)} comparable historical "
+        f"experiment(s) found. "
+        f"Strongest context: {context_name}."
     )
 
-    analysis = analyze_similar_experiments(
-        similar,
-        query
+    analysis = (
+        analyze_similar_experiments(
+            similar,
+            query_from_state,
+        )
     )
 
-    st.subheader("AI Process Interpretation")
+    st.subheader(
+        "🎯 Grade 4 Process Assessment"
+    )
 
-    metric1, metric2, metric3 = st.columns(3)
+    metric1, metric2, metric3, metric4 = (
+        st.columns(4)
+    )
 
     with metric1:
         st.metric(
-            "Relevant Experiments",
-            analysis["total_similar_experiments"]
+            "Comparable Experiments",
+            analysis["total"],
         )
 
     with metric2:
         st.metric(
-            "Successful Experiments",
-            analysis["successful_experiments"]
+            "Graded Experiments",
+            analysis["graded"],
         )
 
     with metric3:
-        success_rate = analysis["success_rate_percent"]
-
         st.metric(
-            "Historical Success Rate",
-            f"{success_rate}%"
-            if success_rate is not None
-            else "No data"
+            "Grade 4 Experiments",
+            analysis["grade_4"],
         )
 
-    st.write("### Expected Result")
+    with metric4:
+        rate = analysis[
+            "grade_4_rate"
+        ]
+
+        st.metric(
+            "Grade 4 Success Rate",
+            (
+                f"{rate}%"
+                if rate is not None
+                else "No graded data"
+            ),
+        )
+
+    st.write(
+        "### Historical Expectation"
+    )
 
     expected_grade = analysis[
-        "expected_processability_grade"
-    ]
-
-    expected_fiber = analysis[
-        "expected_fiber_diameter_nm"
+        "expected_grade"
     ]
 
     if expected_grade is not None:
-        st.write(
-            f"**Expected processability grade:** "
-            f"{expected_grade} / 4"
-        )
-    else:
-        st.write(
-            "**Expected processability grade:** "
-            "Not enough historical data"
-        )
-
-    if expected_fiber is not None:
-        st.write(
-            f"**Expected fiber diameter:** "
-            f"{expected_fiber} nm"
-        )
-    else:
-        st.write(
-            "**Expected fiber diameter:** "
-            "No historical fiber diameter data"
-        )
-
-    st.write("### Interpretation")
-
-    for message in analysis["interpretation"]:
-        st.info(message)
-
-    st.write("### Recommended Successful Process Window")
-
-    window_rows = []
-
-    for parameter, statistics in analysis[
-        "recommended_process_window"
-    ].items():
-        if statistics is not None:
-            window_rows.append({
-                "Parameter": parameter,
-                "Minimum": statistics["minimum"],
-                "Maximum": statistics["maximum"],
-                "Average": statistics["average"],
-            })
-
-    if window_rows:
-        st.dataframe(
-            pd.DataFrame(window_rows),
-            use_container_width=True
+        st.metric(
+            "Similarity-weighted Expected Grade",
+            f"{expected_grade} / 4",
         )
     else:
         st.warning(
-            "Successful process window could not be calculated."
+            "Not enough graded historical "
+            "data for an estimate."
+        )
+
+    st.info(
+        analysis["interpretation"]
+    )
+
+    st.write(
+        "### Grade 4 Historical Process Window"
+    )
+
+    process_window_rows = []
+
+    for (
+        parameter,
+        statistics,
+    ) in analysis[
+        "process_window"
+    ].items():
+        if statistics is None:
+            continue
+
+        process_window_rows.append(
+            {
+                "Parameter":
+                    parameter,
+                "Minimum":
+                    statistics["minimum"],
+                "Maximum":
+                    statistics["maximum"],
+                "Grade 4 Average":
+                    statistics["average"],
+            }
+        )
+
+    if process_window_rows:
+        st.dataframe(
+            pd.DataFrame(
+                process_window_rows
+            ),
+            use_container_width=True,
+            hide_index=True,
+        )
+
+        st.write(
+            "### Recommended Next Experiment"
+        )
+
+        recommendation = analysis[
+            "recommendation"
+        ]
+
+        recommendation_columns = (
+            st.columns(3)
+        )
+
+        for (
+            index,
+            (
+                label,
+                value,
+            ),
+        ) in enumerate(
+            recommendation.items()
+        ):
+            with recommendation_columns[
+                index % 3
+            ]:
+                st.metric(
+                    label,
+                    value,
+                )
+
+        st.caption(
+            "Recommendation = historical average "
+            "of the strongest comparable Grade 4 experiments. "
+            "Decision support only; not a guaranteed prediction."
+        )
+    else:
+        st.warning(
+            "No Grade 4 process window is available "
+            "for this context yet."
         )
 
     if analysis["warnings"]:
-        st.write("### Risk Warnings")
+        st.write(
+            "### Risk Warnings"
+        )
 
-        for warning in analysis["warnings"]:
-            st.warning(warning)
+        for warning in analysis[
+            "warnings"
+        ]:
+            st.warning(
+                warning
+            )
 
-    if analysis["historical_comments"]:
-        st.write("### Historical Engineer Comments")
+    if analysis["comments"]:
+        st.write(
+            "### Historical Engineer Comments"
+        )
 
-        for comment in analysis["historical_comments"]:
-            st.write(f"- {comment}")
+        for comment in analysis[
+            "comments"
+        ]:
+            st.write(
+                f"- {comment}"
+            )
 
 elif submitted:
-    st.warning("No similar experiment found.")
-
-st.write("---")
-st.header("2️⃣ Decision")
-
-similar_from_state = st.session_state.get("similar_results", [])
-query_from_state = st.session_state.get("last_query", query)
-
-if "show_save_form" not in st.session_state:
-    st.session_state["show_save_form"] = False
-
-col_a, col_b = st.columns(2)
-
-with col_a:
-    show_similar_clicked = st.button(
-        "📊 Show Similar Experiments & Success Levels"
+    st.warning(
+        "No scientifically comparable historical "
+        "experiments were found. Try a broader material, "
+        "solvent or machine context."
     )
 
-with col_b:
-    if st.button("💾 Save This as New Experiment"):
-        st.session_state["show_save_form"] = True
 
-if show_similar_clicked:
-    if similar_from_state:
-        rows = []
+# ============================================================
+# EVIDENCE
+# ============================================================
+st.write("---")
+st.header(
+    "2️⃣ Evidence"
+)
 
-        for score, exp in similar_from_state:
-            row = summarize_experiment(exp)
-            row["similarity_score_%"] = score
-            rows.append(row)
-
-        st.subheader("Similar Experiments and Success Levels")
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
-    else:
-        st.warning("No similar experiments available. Run Search Memory first.")
-
-if st.session_state["show_save_form"]:
-    st.subheader("Complete Result Information")
-
-    with st.form("save_result_form"):
-        col1, col2, col3 = st.columns(3)
-
-        with col1:
-            sample_code = st.text_input("Sample Code",value="")
-            client = st.text_input("Client", value="Anonimo")
-            operator = st.text_input("R&D Leader / Operator", value="Sin asignar")
-            date = st.text_input("Date", value=datetime.now().strftime("%Y-%m-%d"))
-
-        with col2:
-            concentration = st.number_input(
-                "Polymer Concentration (%)",
-                value=10.0,
-                step=0.1
-            )
-            solvent_percentage = st.number_input(
-                "Solvent Percentage (%)",
-                value=90.0,
-                step=0.1
-            )
-
-        with col3:
-            setup_number = st.selectbox("Setup Number", setup_options)
-            platform = st.selectbox("Platform", platform_options)
-
-        col1, col2, col3 = st.columns(3)
-
-        with col1:
-            viscosity = st.text_input("Viscosity (cP)", value="")
-            conductivity = st.text_input("Conductivity (microS)", value="")
-
-        with col2:
-            grade = st.number_input(
-                "Processability Grade",
-                min_value=1,
-                max_value=4,
-                value=3
-            )
-            fiber_diameter = st.text_input("Avg Fiber Diameter (nm)", value="")
-
-        with col3:
-            comments = st.text_area("Process Comments")
-            sem_comments = st.text_area("SEM Comments")
-
-        confirm_save = st.form_submit_button("✅ Confirm Save Experiment")
-
-    if confirm_save:
-        new_data = {
-            "sample_code": sample_code,
-            "project_code": query_from_state["project_code"],
-            "client": client,
-            "operator": operator,
-            "date": date,
-            "formula_id": query_from_state["formula_id"],
-            "material": query_from_state["material"],
-            "concentration": concentration,
-            "solvent": query_from_state["solvent"],
-            "solvent_percentage": solvent_percentage,
-            "viscosity": viscosity,
-            "conductivity": conductivity,
-            "setup_number": setup_number,
-            "machine": query_from_state["machine"],
-            "platform": platform,
-            "flow": query_from_state["flow"],
-            "hv_plus": query_from_state["hv_plus"],
-            "hv_minus": query_from_state["hv_minus"],
-            "temperature": query_from_state["temperature"],
-            "humidity": query_from_state["humidity"],
-            "position_y": query_from_state["position_y"],
-            "dz": query_from_state["dz"],
-            "grade": grade,
-            "comments": comments,
-            "sem_comments": sem_comments,
-            "fiber_diameter": fiber_diameter,
+if st.button(
+    "📊 Show Comparable Experiments"
+):
+    if similar:
+        tier_names = {
+            4:
+                "Exact formulation",
+            3:
+                "Same polymer + solvent",
+            2:
+                "Same polymer",
+            1:
+                "Global / solvent context",
         }
 
-        new_experiment = create_new_experiment(new_data)
-        records.append(new_experiment)
-        save_database(records)
+        evidence_rows = []
 
-        st.success(f"New experiment saved: {new_experiment['experiment_id']}")
-        st.session_state["show_save_form"] = False
-        st.rerun()
+        for item in similar:
+            row = (
+                summarize_experiment(
+                    item["experiment"]
+                )
+            )
 
+            row[
+                "context_match"
+            ] = tier_names.get(
+                item["tier"],
+                "",
+            )
+
+            row[
+                "similarity_score_%"
+            ] = item["score"]
+
+            evidence_rows.append(
+                row
+            )
+
+        st.dataframe(
+            pd.DataFrame(
+                evidence_rows
+            ),
+            use_container_width=True,
+            hide_index=True,
+        )
+    else:
+        st.warning(
+            "Run the Grade 4 analysis first."
+        )
+
+
+# ============================================================
+# TRACEABILITY
+# ============================================================
 st.write("---")
+st.header(
+    "3️⃣ Save / Traceability"
+)
 
-# -----------------------------
-# MEMORY TABLE
-# -----------------------------
-st.header("3️⃣ Experiment Memory")
+st.info(
+    "New experimental data is saved through Section A: "
+    "Projects → Materials → Formulations → Setups → "
+    "Experimental Runs → Results."
+)
+
+
+# ============================================================
+# MEMORY
+# ============================================================
+st.write("---")
+st.header(
+    "4️⃣ Experiment Memory"
+)
 
 if records:
-    summary_rows = [summarize_experiment(exp) for exp in records]
-    st.dataframe(pd.DataFrame(summary_rows), use_container_width=True)
+    st.dataframe(
+        pd.DataFrame(
+            [
+                summarize_experiment(
+                    experiment
+                )
+                for experiment in records
+            ]
+        ),
+        use_container_width=True,
+        hide_index=True,
+    )
 else:
-    st.info("No experiments saved yet.")
+    st.info(
+        "No experiments are available."
+    )
