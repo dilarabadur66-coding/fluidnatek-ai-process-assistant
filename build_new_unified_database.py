@@ -13,6 +13,10 @@ OUTPUT_FILE = (
     / "unified_experiments_database.json"
 )
 
+MATERIALS_OUTPUT_FILE = (
+    SOURCE_DIR
+    / "materials_database.json"
+)
 
 def load_json(file_path):
     if not file_path.exists():
@@ -107,6 +111,7 @@ def build_formulation_components(composition):
                 f"{formula_id}_{field_name}"
             ),
             "formula_id": formula_id,
+            "material_id": material_name.upper().replace(" ", "_"),
             "material_name": material_name,
             "role": role,
             "percentage": composition.get(
@@ -126,6 +131,23 @@ def build_formulation_components(composition):
         components.append(component)
 
     return components
+def build_materials(unified_records):
+    materials = {}
+    
+    for record in unified_records:
+        for component in record.get("formulation_components", []):
+            name = component.get("material_name")
+
+            if not name:
+                continue
+
+            if name not in materials:
+                materials[name] = {
+                    "material_id": name.upper().replace(" ", "_"),
+                    "material_name": name,
+                }
+
+    return list(materials.values())
 
 def build_unified_records():
 
@@ -260,6 +282,8 @@ def build_unified_records():
             composition
                 )
             ),
+
+
             "characterization": characterization,
             "setup": setup,
             "run_parameters": process,
@@ -300,12 +324,17 @@ def main():
 
     for key, value in summary.items():
         print(f"{key}: {value}")
+    materials = build_materials(records)
+    print(f"materials: {len(materials)}")
 
     save_json(
         records,
         OUTPUT_FILE,
     )
-
+    save_json(
+    materials,
+    MATERIALS_OUTPUT_FILE,
+)
     print("")
     print("Unified database created:")
     print(OUTPUT_FILE)
