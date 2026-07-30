@@ -4,7 +4,7 @@ import uuid
 from pathlib import Path
 
 
-SOURCE_FILE = Path("data/processed/unified_experiments_database.json")
+SOURCE_FILE = Path("data/processed/8_POCS_ADHESIVO_2/unified_experiments_database.json")
 TEST_OUTPUT_DIR = Path("data/migration_full_test")
 
 TEST_PROJECTS_FILE = TEST_OUTPUT_DIR / "projects.json"
@@ -14,7 +14,7 @@ TEST_FORMULATION_COMPONENTS_FILE = TEST_OUTPUT_DIR / "formulation_components.jso
 TEST_CHARACTERIZATIONS_FILE = TEST_OUTPUT_DIR / "characterizations.json"
 TEST_SETUPS_FILE = TEST_OUTPUT_DIR / "setups.json"
 TEST_RUNS_FILE = TEST_OUTPUT_DIR / "runs.json"
-TEST_RESULTS_FILE = TEST_OUTPUT_DIR / "results.json"
+TEST_RUN_RESULT_FILE = TEST_OUTPUT_DIR / "run_result.json"
 
 
 def load_source_records():
@@ -104,7 +104,7 @@ def build_dry_run_summary(records):
     incomplete_run_count = 0
     records_with_composition = 0
     records_with_properties = 0
-    records_with_results = 0
+    records_with_run_result = 0
 
     for index, experiment in enumerate(records, start=1):
         project_code = normalize_text(experiment.get("project_code", ""))
@@ -115,11 +115,11 @@ def build_dry_run_summary(records):
         if formula_id:
             formulation_keys.add((project_code, formula_id))
 
-        composition = experiment.get("solution_composition", {}) or {}
+        composition = experiment.get("formulation", {}) or {}
         if composition:
             records_with_composition += 1
 
-        properties = experiment.get("solution_properties", {}) or {}
+        properties = experiment.get("characterization", {}) or {}
         if properties:
             records_with_properties += 1
 
@@ -131,22 +131,22 @@ def build_dry_run_summary(records):
             experiment_id = f"historical_run_{index}"
         run_ids.add(experiment_id)
 
-        process = experiment.get("process_parameters", {}) or {}
-        results = experiment.get("results", {}) or {}
+        process = experiment.get("run_parameters", {}) or {}
+        run_result = experiment.get("run_result", {}) or {}
 
-        processability = results.get(
+        processability = run_result.get(
             "processability_grade",
             process.get("processability_grade", "")
         )
-        process_comments = results.get(
+        process_comments = run_result.get(
             "process_comments",
             process.get("process_comments", "")
         )
-        sem_comments = results.get(
+        sem_comments = run_result.get(
             "sem_comments",
             process.get("sem_comments", "")
         )
-        fiber_diameter = results.get(
+        fiber_diameter = run_result.get(
             "avg_fiber_diameter_nm",
             process.get("avg_fiber_diameter_nm", "")
         )
@@ -160,7 +160,7 @@ def build_dry_run_summary(records):
                 fiber_diameter,
             )
         ):
-            records_with_results += 1
+            records_with_run_result += 1
             result_count += 1
 
         required_run_fields = [
@@ -181,10 +181,10 @@ def build_dry_run_summary(records):
         "unique_nonempty_formulations": len(formulation_keys),
         "unique_setups": len(setup_keys),
         "runs_to_create": len(run_ids),
-        "results_to_create": result_count,
+        "run_result_to_create": result_count,
         "records_with_composition": records_with_composition,
-        "records_with_solution_properties": records_with_properties,
-        "records_with_results": records_with_results,
+        "records_with_characterization": records_with_properties,
+        "records_with_run_result": records_with_run_result,
         "incomplete_runs": incomplete_run_count,
     }
 
@@ -197,7 +197,7 @@ def migrate_records(records):
     characterizations = {}
     setups = {}
     runs = {}
-    results = {}
+    run_result = {}
 
     for index, experiment in enumerate(records, start=1):
         # -------------------------
@@ -271,7 +271,7 @@ def migrate_records(records):
             formulation_key[1],
         )
 
-        composition = experiment.get("solution_composition", {}) or {}
+        composition = experiment.get("formulation", {}) or {}
         polymer_concentration = safe_float(
             composition.get("polymer_a_percentage", "")
         )
@@ -377,7 +377,7 @@ def migrate_records(records):
         # -------------------------
         # CHARACTERIZATION
         # -------------------------
-        properties = experiment.get("solution_properties", {}) or {}
+        properties = experiment.get("characterization", {}) or {}
 
         if properties:
             characterization_key = (
@@ -447,7 +447,7 @@ def migrate_records(records):
         # -------------------------
         # RUN
         # -------------------------
-        process = experiment.get("process_parameters", {}) or {}
+        process = experiment.get("run_parameters", {}) or {}
 
         experiment_id = normalize_text(experiment.get("experiment_id", ""))
         if not experiment_id:
@@ -543,14 +543,14 @@ def migrate_records(records):
             "working_distance": working_distance,
             "working_distance_raw": working_distance_raw,
             "processability_score": safe_float(
-                (experiment.get("results", {}) or {}).get(
+                (experiment.get("run_result", {}) or {}).get(
                     "processability_grade",
                     
                     ""
                 )
             ),
             "process_comments": normalize_text(
-                (experiment.get("results", {}) or {}).get(
+                (experiment.get("run_result", {}) or {}).get(
                     "process_comments",
                     ""
                 )
@@ -561,24 +561,24 @@ def migrate_records(records):
         # -------------------------
         # RESULT
         # -------------------------
-        old_results = experiment.get("results", {}) or {}
+        old_run_result = experiment.get("run_result", {}) or {}
 
-        if any(has_value(value) for value in old_results.values()):
-            results[experiment_id] = {
+        if any(has_value(value) for value in old_run_result.values()):
+            run_result[experiment_id] = {
                 "result_id": stable_id(
                     "MIG_RESULT_",
                     experiment_id,
                 ),
                 "run_id": experiment_id,
                 "sem_morphology": normalize_text(
-                    old_results.get("sem_comments", "")
+                    old_run_result.get("sem_comments", "")
                 ),
                 "filtration_performance": "",
                 "notes": (
                     "Historical result migrated. "
                     "Original avg fiber diameter: "
                     + normalize_text(
-                        old_results.get("avg_fiber_diameter_nm", "")
+                        old_run_result.get("avg_fiber_diameter_nm", "")
                     )
                 ),
             }
@@ -591,7 +591,7 @@ def migrate_records(records):
         "characterizations": list(characterizations.values()),
         "setups": list(setups.values()),
         "runs": list(runs.values()),
-        "results": list(results.values()),
+        "run_result": list(run_result.values()),
     }
 
     return output
@@ -631,7 +631,7 @@ def validate_relationships(output):
         ),
         "broken_result_run": sum(
             x["run_id"] not in runs
-            for x in output["results"]
+            for x in output["run_result"]
         ),
     }
 
@@ -652,7 +652,7 @@ def write_test_output(output):
     )
     save_json(output["setups"], TEST_SETUPS_FILE)
     save_json(output["runs"], TEST_RUNS_FILE)
-    save_json(output["results"], TEST_RESULTS_FILE)
+    save_json(output["run_result"], TEST_RUN_RESULT_FILE)
 
 
 def main():
@@ -685,7 +685,7 @@ def main():
     print("Characterizations:", len(output["characterizations"]))
     print("Setups:", len(output["setups"]))
     print("Runs:", len(output["runs"]))
-    print("Results:", len(output["results"]))
+    print("run_result:", len(output["run_result"]))
 
     print("")
     print("RELATIONSHIP VALIDATION")

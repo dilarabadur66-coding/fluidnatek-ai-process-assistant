@@ -264,6 +264,12 @@ def build_unified_records():
                 )
             ),
         }
+        run = {
+            "run_id": experiment_id,
+            "experiment_id": experiment_id,
+            "setup_number": setup_number,
+            "formula_id": formula_id,
+        }
 
         unified_record = {
             "experiment_id": experiment_id,
@@ -278,18 +284,16 @@ def build_unified_records():
             "materials": [],
             "formulation": composition,
             "formulation_components": (
-            build_formulation_components(
-            composition
+                build_formulation_components(
+                    composition
                 )
             ),
-
-
             "characterization": characterization,
+            "run": run,
             "setup": setup,
             "run_parameters": process,
             "run_result": run_result,
         }
-
         unified_records.append(
             unified_record
         )
