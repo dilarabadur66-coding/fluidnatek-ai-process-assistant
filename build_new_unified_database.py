@@ -75,14 +75,67 @@ def build_lookup(records, key_name):
 
     return lookup
 
+def build_formulation_components(composition):
+    components = []
+
+    component_groups = [
+        ("solvent_a", "solvent"),
+        ("solvent_b", "solvent"),
+        ("solvent_c", "solvent"),
+        ("polymer_a", "polymer"),
+        ("polymer_b", "polymer"),
+        ("polymer_c", "polymer"),
+        ("additive_a_api", "additive"),
+        ("additive_b_api", "additive"),
+        ("additive_c_api", "additive"),
+    ]
+
+    formula_id = normalize_text(
+        composition.get("formula_id")
+    )
+
+    for field_name, role in component_groups:
+        material_name = normalize_text(
+            composition.get(field_name)
+        )
+
+        if not material_name:
+            continue
+
+        component = {
+            "component_id": (
+                f"{formula_id}_{field_name}"
+            ),
+            "formula_id": formula_id,
+            "material_name": material_name,
+            "role": role,
+            "percentage": composition.get(
+                f"{field_name}_percentage",
+                "",
+            ),
+            "ratio": composition.get(
+                f"{field_name}_ratio",
+                "",
+            ),
+            "solids_ratio": composition.get(
+                f"{field_name}_solids_ratio",
+                "",
+            ),
+        }
+
+        components.append(component)
+
+    return components
 
 def build_unified_records():
+
+
     compositions = load_json(
         SOURCE_DIR
         / "solution_composition_database.json"
     )
 
-    properties = load_json(
+    properties_records = load_json(
         SOURCE_DIR
         / "solution_properties_database.json"
     )
@@ -103,7 +156,7 @@ def build_unified_records():
     )
 
     properties_by_formula = build_lookup(
-        properties,
+        properties_records,
         "formula_id",
     )
 
@@ -132,7 +185,7 @@ def build_unified_records():
             {},
         )
 
-        solution_properties = (
+        characterization = (
             properties_by_formula.get(
                 formula_id,
                 {},
@@ -147,7 +200,7 @@ def build_unified_records():
         if not composition:
             missing_composition += 1
 
-        if not solution_properties:
+        if not characterization:
             missing_properties += 1
 
         if not setup:
@@ -157,8 +210,8 @@ def build_unified_records():
             process.get("experiment_id")
         )
 
-        result = {
-            "processability_grade": (
+        run_result = {
+            "processability_score": (
                 process.get(
                     "processability_grade",
                     "",
@@ -201,13 +254,16 @@ def build_unified_records():
                 "rd_leader": "",
             },
             "materials": [],
-            "solution_composition": composition,
-            "solution_properties": (
-                solution_properties
+            "formulation": composition,
+            "formulation_components": (
+            build_formulation_components(
+            composition
+                )
             ),
+            "characterization": characterization,
             "setup": setup,
-            "process_parameters": process,
-            "results": result,
+            "run_parameters": process,
+            "run_result": run_result,
         }
 
         unified_records.append(

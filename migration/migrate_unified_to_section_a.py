@@ -545,6 +545,7 @@ def migrate_records(records):
             "processability_score": safe_float(
                 (experiment.get("results", {}) or {}).get(
                     "processability_grade",
+                    
                     ""
                 )
             ),

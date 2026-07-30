@@ -83,7 +83,7 @@ def build_unified_experiments_database(
             "experiment_id": process.get("experiment_id", ""),
             "project_code": project_code,
             "project": project,
-            "materials": materials,
+            "materials": [],
             "formula_id": formula_id,
             "solution_composition": composition,
             "solution_properties": properties,
